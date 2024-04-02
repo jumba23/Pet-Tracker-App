@@ -1,4 +1,5 @@
 import Logo from "@/components/logo";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 export default function Home() {
@@ -21,8 +22,9 @@ export default function Home() {
           Use Pet Tracker to easily keep track of pets under your care. Get a
           lifetime access for $299.
         </p>
-        <div className="mt-10">
-          <button>Sign Up</button>
+        <div className="mt-10 space-x-3">
+          <Button>Get Started</Button>
+          <Button variant="secondary">Log in</Button>
         </div>
       </div>
     </main>
