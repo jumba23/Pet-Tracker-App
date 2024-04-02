@@ -9,6 +9,13 @@ export default function Home() {
         width={519}
         height={472}
       />
+
+      <div>
+        <h1 className="text-5xl font-semibold my-6 max-w-[500px]">
+          Manage your <span className="font-extrabold"> pet daycare </span> with
+          ease
+        </h1>
+      </div>
     </main>
   );
 }
