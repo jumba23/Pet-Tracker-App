@@ -14,11 +14,11 @@ const routes = [
 
 const AppHeader = () => {
   return (
-    <header className="flex justify-between">
+    <header className="flex justify-between border-b border-white/10 py-2">
       <Logo />
 
       <nav>
-        <ul className="flex gap-2">
+        <ul className="flex gap-2 text-xs">
           {routes.map((route) => (
             <li key={route.path}>
               <Link href={route.path}>{route.label}</Link>

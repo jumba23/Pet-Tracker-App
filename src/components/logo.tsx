@@ -5,7 +5,7 @@ import Link from "next/link";
 const Logo = () => {
   return (
     <Link href="/">
-      <Image src={logo} alt="Pet Tracker logo" />;
+      <Image src={logo} alt="Pet Tracker logo" />
     </Link>
   );
 };
