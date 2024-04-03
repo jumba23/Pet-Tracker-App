@@ -1,19 +1,12 @@
-import H1 from "@/components/h1";
+import Branding from "@/components/branding";
+import Stats from "@/components/stats";
 
 const Page = () => {
   return (
     <main>
       <div className="flex justify-between items-center text-white py-8">
-        <section>
-          <H1>
-            Pet<span className="font-semibold">Stay</span>
-          </H1>
-          <p>Manage your pet daycare with ease.</p>
-        </section>
-        <section>
-          <p className="text-2xl font-bold leading-6">2</p>
-          <p className="opacity-80">Current Guests</p>
-        </section>
+        <Branding />
+        <Stats />
       </div>
     </main>
   );
