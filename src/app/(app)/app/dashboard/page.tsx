@@ -8,6 +8,16 @@ const Page = () => {
         <Branding />
         <Stats />
       </div>
+
+      <div>
+        <SearchForm />
+        <ContentBlock>
+          <PetList />
+        </ContentBlock>
+        <ContentBlock>
+          <PetDetails />
+        </ContentBlock>
+      </div>
     </main>
   );
 };
