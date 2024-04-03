@@ -1,4 +1,5 @@
 import Branding from "@/components/branding";
+import ContentBlock from "@/components/content-block";
 import PetDetails from "@/components/pet-details";
 import PetList from "@/components/pet-list";
 import SearchForm from "@/components/search-form";
