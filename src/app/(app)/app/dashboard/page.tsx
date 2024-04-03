@@ -1,4 +1,7 @@
 import Branding from "@/components/branding";
+import PetDetails from "@/components/pet-details";
+import PetList from "@/components/pet-list";
+import SearchForm from "@/components/search-form";
 import Stats from "@/components/stats";
 
 const Page = () => {
