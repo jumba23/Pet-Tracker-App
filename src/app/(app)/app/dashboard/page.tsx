@@ -1,11 +1,13 @@
+import H1 from "@/components/h1";
+
 const Page = () => {
   return (
     <main>
       <div className="flex justify-between items-center text-white py-8">
-        <section className="text-medium text-2xl leading-6">
-          <h1>
+        <section>
+          <H1>
             Pet<span className="font-semibold">Stay</span>
-          </h1>
+          </H1>
           <p>Manage your pet daycare with ease.</p>
         </section>
         <section>
