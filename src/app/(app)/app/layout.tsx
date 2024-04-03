@@ -7,9 +7,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     <>
       <BackgroundPattern />
 
-      <AppHeader />
-      {children}
-      <AppFooter />
+      <div className="flex flex-col max-w-[1050px] px-4 mx-auto min-h-screen">
+        <AppHeader />
+        {children}
+        <AppFooter />
+      </div>
     </>
   );
 };
