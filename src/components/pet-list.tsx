@@ -11,7 +11,7 @@ const PetList = ({ pets }) => {
               alt="Pet image"
               width={45}
               height={45}
-              className="rounded-full object-cover"
+              className="w-[45px] h-[45px] rounded-full object-cover"
             />
             <p className="font-semibold">{pet.name}</p>
           </button>
