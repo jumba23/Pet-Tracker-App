@@ -1,6 +1,7 @@
 "use client";
 
 import { usePetContext } from "@/lib/hooks";
+import { Pet } from "@/lib/types";
 import Image from "next/image";
 
 const PetDetails = () => {
@@ -8,20 +9,32 @@ const PetDetails = () => {
 
   return (
     <section className="flex flex-col h-full w-full">
-      <TopBar pet={selectedPet} />
+      {!selectedPet ? (
+        <EmptyView />
+      ) : (
+        <>
+          <TopBar pet={selectedPet} />
 
-      <OtherInfo pet={selectedPet} />
+          <OtherInfo pet={selectedPet} />
 
-      <section className="flex-1 bg-white px-7 py-5 rounded-md mb-9 mx-8 border border-black-[0.08]">
-        {selectedPet?.notes}
-      </section>
+          <Notes pet={selectedPet} />
+        </>
+      )}
     </section>
   );
 };
 
 export default PetDetails;
 
-const TopBar = ({ pet }) => {
+const EmptyView = () => {
+  return <p className="text-2xl font-medium">No pet selected</p>;
+};
+
+type Props = {
+  pet: Pet;
+};
+
+const TopBar = ({ pet }: Props) => {
   return (
     <div className="flex items-center bg-white px-8 py-5 border-b border-black/[0.08]">
       <Image
@@ -36,7 +49,7 @@ const TopBar = ({ pet }) => {
   );
 };
 
-const OtherInfo = ({ pet }) => {
+const OtherInfo = ({ pet }: Props) => {
   return (
     <div className="flex justify-around py-10 px-5 text-center">
       <div>
@@ -52,5 +65,13 @@ const OtherInfo = ({ pet }) => {
         <p className="mt-1 text-lg text-zinc-800">{pet?.age}</p>
       </div>
     </div>
+  );
+};
+
+const Notes = ({ pet }: Props) => {
+  return (
+    <section className="flex-1 bg-white px-7 py-5 rounded-md mb-9 mx-8 border border-black-[0.08]">
+      {pet?.notes}
+    </section>
   );
 };
