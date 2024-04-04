@@ -30,7 +30,7 @@ const Page = async () => {
 
         <div className="md:row-start-2 md:row-span-full md:col-start-1 md:col-span-1">
           <ContentBlock>
-            <PetList />
+            <PetList pets={data} />
           </ContentBlock>
         </div>
 
