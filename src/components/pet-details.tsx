@@ -7,7 +7,7 @@ const PetDetails = () => {
   const { selectedPet } = usePetContext();
 
   return (
-    <section className="h-full w-full">
+    <section className="flex flex-col h-full w-full">
       <div className="flex items-center bg-white px-8 py-5 border-b border-black/[0.08]">
         <Image
           src={selectedPet?.imageUrl}
@@ -36,7 +36,9 @@ const PetDetails = () => {
         </div>
       </div>
 
-      <section className="">{selectedPet?.notes}</section>
+      <section className="flex-1 bg-white px-7 py-5 rounded-md mb-9 mx-8 border border-black-[0.08]">
+        {selectedPet?.notes}
+      </section>
     </section>
   );
 };
