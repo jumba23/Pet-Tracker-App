@@ -1,6 +1,11 @@
+"use client";
+
+import { usePetContext } from "@/lib/hooks";
 import Image from "next/image";
 
 const PetList = () => {
+  const { pets } = usePetContext();
+
   return (
     <ul className="bg-white border-b border-black/[0.08]">
       {pets.map((pet) => (
