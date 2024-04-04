@@ -8,18 +8,7 @@ const PetDetails = () => {
 
   return (
     <section className="flex flex-col h-full w-full">
-      <div className="flex items-center bg-white px-8 py-5 border-b border-black/[0.08]">
-        <Image
-          src={selectedPet?.imageUrl}
-          alt="Selected pet image"
-          width={75}
-          height={75}
-          className="w-[75px] h-[75px] rounded-full object-cover"
-        />
-        <h2 className="text-3xl font-semibold leading-7 ml-5">
-          {selectedPet?.name}
-        </h2>
-      </div>
+      <TopBar pet={selectedPet} />
 
       <div className="flex justify-around py-10 px-5 text-center">
         <div>
@@ -44,3 +33,18 @@ const PetDetails = () => {
 };
 
 export default PetDetails;
+
+const TopBar = ({ pet }) => {
+  return (
+    <div className="flex items-center bg-white px-8 py-5 border-b border-black/[0.08]">
+      <Image
+        src={pet?.imageUrl}
+        alt="Selected pet image"
+        width={75}
+        height={75}
+        className="w-[75px] h-[75px] rounded-full object-cover"
+      />
+      <h2 className="text-3xl font-semibold leading-7 ml-5">{pet?.name}</h2>
+    </div>
+  );
+};
