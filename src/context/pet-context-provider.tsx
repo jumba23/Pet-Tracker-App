@@ -3,13 +3,14 @@
 import { Pet } from "@/lib/types";
 import { createContext, useState } from "react";
 
-type PetContext = {
+type TPetContext = {
   pets: Pet[];
   selectedPetId: string | null;
+  selectedPet: Pet | undefined;
   handleSetSelectedPetId: (id: string) => void;
 };
 
-export const PetContext = createContext<PetContext | null>(null);
+export const PetContext = createContext<TPetContext | null>(null);
 
 type PetContextProviderProps = {
   data: Pet[];
@@ -17,8 +18,14 @@ type PetContextProviderProps = {
 };
 
 const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
+  // state
   const [pets, setPets] = useState(data);
   const [selectedPetId, setSelectedPetId] = useState<string | null>(null);
+
+  //derived state
+  const selectedPet = pets.find((pet) => pet.id === selectedPetId);
+
+  //event handlers / actions
 
   //use handle function to set selected pet id
   const handleSetSelectedPetId = (id: string) => {
@@ -31,6 +38,7 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
         pets,
         selectedPetId,
         handleSetSelectedPetId,
+        selectedPet,
       }}
     >
       {children}
