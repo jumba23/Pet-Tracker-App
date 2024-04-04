@@ -10,7 +10,7 @@ const PetDetails = () => {
   return (
     <section className="flex flex-col h-full w-full">
       {!selectedPet ? (
-        <div className="h-full felx justify-center items-center">
+        <div className="h-full flex justify-center items-center">
           <EmptyView />
         </div>
       ) : (
