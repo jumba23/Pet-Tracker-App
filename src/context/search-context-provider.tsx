@@ -1,17 +1,10 @@
 "use client";
 
-import { Pet } from "@/lib/types";
 import { createContext, useState } from "react";
 
-type TPetContext = {
-  pets: Pet[];
-  selectedPetId: string | null;
-  selectedPet: Pet | undefined;
-  numberOfPets: number;
-  handleSetSelectedPetId: (id: string) => void;
-};
+type TSearchContext = {};
 
-export const PetContext = createContext<TPetContext | null>(null);
+export const PetContext = createContext<TSearchContext | null>(null);
 
 type SearchContextProviderProps = {
   children: React.ReactNode;
@@ -19,6 +12,7 @@ type SearchContextProviderProps = {
 
 const SearchContextProvider = ({ children }: SearchContextProviderProps) => {
   // state
+  const [searchQuery, setSearchQuery] = useState("");
 
   //derived state
 
