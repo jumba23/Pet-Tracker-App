@@ -39,7 +39,9 @@ const PetButton = ({ actionType, children, onClick }: PetButtonProps) => {
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add a new pet</DialogTitle>
+          <DialogTitle>
+            {actionType === "add" ? "Add a new pet" : "Edit pet"}
+          </DialogTitle>
         </DialogHeader>
 
         <PetForm />
