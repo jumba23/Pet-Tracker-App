@@ -2,15 +2,18 @@
 
 import { createContext, useState } from "react";
 
-type TSearchContext = {};
-
-export const PetContext = createContext<TSearchContext | null>(null);
-
-type SearchContextProviderProps = {
+type SearchContextProvider = {
   children: React.ReactNode;
 };
 
-const SearchContextProvider = ({ children }: SearchContextProviderProps) => {
+type TSearchContext = {
+  searchQuery: string;
+  handleChangeSearchQuery: (NewValue: string) => void;
+};
+
+export const PetContext = createContext<TSearchContext | null>(null);
+
+export const SearchContextProvider = ({ children }: SearchContextProvider) => {
   // state
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -19,8 +22,20 @@ const SearchContextProvider = ({ children }: SearchContextProviderProps) => {
   //event handlers / actions
 
   //use handle function to set selected pet id
+  const handleChangeSearchQuery = (NewValue: string) => {
+    setSearchQuery(NewValue);
+  };
 
-  return <SearchContext.Provider value={{}}>{children}</SearchContext.Provider>;
+  return (
+    <PetContext.Provider
+      value={{
+        searchQuery,
+        handleChangeSearchQuery,
+      }}
+    >
+      {children}
+    </PetContext.Provider>
+  );
 };
 
 export default SearchContextProvider;
