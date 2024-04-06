@@ -8,6 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+import PetForm from "./pet-form";
 
 type PetButtonProps = {
   actionType: "add" | "edit" | "checkout";
@@ -28,8 +29,7 @@ const PetButton = ({ actionType, children, onClick }: PetButtonProps) => {
           <DialogHeader>
             <DialogTitle>Add a new pet</DialogTitle>
           </DialogHeader>
-          Form Here ....
-          <DialogFooter></DialogFooter>
+          <PetForm />
         </DialogContent>
       </Dialog>
     );
