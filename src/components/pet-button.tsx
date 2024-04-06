@@ -1,6 +1,12 @@
 import { PlusIcon } from "@radix-ui/react-icons";
 import { Button } from "./ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
 
 type PetButtonProps = {
   actionType: "add" | "edit" | "checkout";
@@ -17,7 +23,12 @@ const PetButton = ({ actionType, children, onClick }: PetButtonProps) => {
             <PlusIcon className="h-6 w-6" />{" "}
           </Button>
         </DialogTrigger>
-        <DialogContent>TEST</DialogContent>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add a new pet</DialogTitle>
+          </DialogHeader>
+          Form Here ....
+        </DialogContent>
       </Dialog>
     );
 
