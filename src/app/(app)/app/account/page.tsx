@@ -6,7 +6,7 @@ const Page = () => {
     <main>
       <H1 className="my-8 text-white">Your Account</H1>
 
-      <ContentBlock>
+      <ContentBlock className="h-[500px]">
         <p>Logged in as ...</p>
       </ContentBlock>
     </main>
