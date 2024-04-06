@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -28,6 +29,7 @@ const PetButton = ({ actionType, children, onClick }: PetButtonProps) => {
             <DialogTitle>Add a new pet</DialogTitle>
           </DialogHeader>
           Form Here ....
+          <DialogFooter></DialogFooter>
         </DialogContent>
       </Dialog>
     );
