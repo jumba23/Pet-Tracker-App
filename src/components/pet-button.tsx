@@ -27,7 +27,8 @@ const PetButton = ({ actionType, children, onClick }: PetButtonProps) => {
 
   return (
     <Dialog>
-      <DialogTrigger>
+      {/* adding "asChild" helps resolve hydration error since we have nested Button elements */}
+      <DialogTrigger asChild>
         {actionType === "add" ? (
           <Button size="icon">
             <PlusIcon className="h-6 w-6" />{" "}
