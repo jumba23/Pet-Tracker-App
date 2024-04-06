@@ -50,8 +50,8 @@ const TopBar = ({ pet }: Props) => {
       <h2 className="text-3xl font-semibold leading-7 ml-5">{pet?.name}</h2>
 
       <div className="ml-auto">
-        <PetButton />
-        <PetButton />
+        <PetButton actionType="edit" />
+        <PetButton actionType="checkout" />
       </div>
     </div>
   );

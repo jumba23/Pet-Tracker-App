@@ -23,7 +23,7 @@ const Page = async () => {
           <ContentBlock>
             <PetList />
 
-            <PetButton />
+            <PetButton actionType="add" />
           </ContentBlock>
         </div>
 

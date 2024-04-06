@@ -1,6 +1,10 @@
 import { Button } from "./ui/button";
 
-const PetButton = () => {
+type PetButtonProps = {
+  actionType: "add" | "edit" | "checkout";
+};
+
+const PetButton = ({ actionType }: PetButtonProps) => {
   return <Button>Edit </Button>;
 };
 
