@@ -29,13 +29,16 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
   const numberOfPets = pets.length;
 
   //event handlers / actions
+  const handleAddPet = (newPet: Pet) => {
+    setPets((prev) => [...prev, newPet]);
+  };
 
-  //use handle function to set selected pet id
   const handleCheckoutPet = (id: string) => {
     setPets((prev) => prev.filter((pet) => pet.id !== id));
     setSelectedPetId(null);
   };
 
+  //use handle function to set selected pet id
   const handleSetSelectedPetId = (id: string) => {
     setSelectedPetId(id);
   };
