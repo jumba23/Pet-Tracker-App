@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useSearchContext } from "@/lib/hooks";
 
 const SearchForm = () => {
+  const { searchQuery } = useSearchContext();
+
   return (
     <form className="h-full w-full">
       <input

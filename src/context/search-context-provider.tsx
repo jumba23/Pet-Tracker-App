@@ -11,7 +11,7 @@ type TSearchContext = {
   handleChangeSearchQuery: (NewValue: string) => void;
 };
 
-export const PetContext = createContext<TSearchContext | null>(null);
+export const SearchContext = createContext<TSearchContext | null>(null);
 
 export const SearchContextProvider = ({ children }: SearchContextProvider) => {
   // state
@@ -27,14 +27,14 @@ export const SearchContextProvider = ({ children }: SearchContextProvider) => {
   };
 
   return (
-    <PetContext.Provider
+    <SearchContext.Provider
       value={{
         searchQuery,
         handleChangeSearchQuery,
       }}
     >
       {children}
-    </PetContext.Provider>
+    </SearchContext.Provider>
   );
 };
 
