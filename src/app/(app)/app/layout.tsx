@@ -21,9 +21,11 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 
       <div className="flex flex-col max-w-[1050px] px-4 mx-auto min-h-screen">
         <AppHeader />
+
         <SearchContextProvider>
           <PetContextProvider data={data}>{children}</PetContextProvider>
         </SearchContextProvider>
+
         <AppFooter />
       </div>
     </>
