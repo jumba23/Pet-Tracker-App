@@ -33,6 +33,7 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
   //use handle function to set selected pet id
   const handleCheckoutPet = (id: string) => {
     setPets((prev) => prev.filter((pet) => pet.id !== id));
+    setSelectedPetId(null);
   };
 
   const handleSetSelectedPetId = (id: string) => {
