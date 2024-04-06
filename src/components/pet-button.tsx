@@ -1,5 +1,7 @@
+import { Button } from "./ui/button";
+
 const PetButton = () => {
-  return <div>pet-button</div>;
+  return <Button>Edit </Button>;
 };
 
 export default PetButton;
