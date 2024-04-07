@@ -19,31 +19,31 @@ const PetForm = ({ actionType }: PetFormProps) => {
   };
 
   return (
-    <form className="flex flex-col">
+    <form onSubmit={handleSubmit} className="flex flex-col">
       <div className="space-y-3">
         <div className="space-y-1">
           <Label htmlFor="name">Name</Label>
-          <Input id="name" type="text" />
+          <Input id="name" type="text" name="name" />
         </div>
 
         <div className="space-y-1">
           <Label htmlFor="ownerName">Owner Name</Label>
-          <Input id="name" type="text" />
+          <Input id="name" type="text" name="ownerName" />
         </div>
 
         <div className="space-y-1">
           <Label htmlFor="imageUrl">Image Url</Label>
-          <Input id="name" type="text" />
+          <Input id="name" type="text" name="imageUrl" />
         </div>
 
         <div className="space-y-1">
           <Label htmlFor="age">Age</Label>
-          <Input id="name" type="text" />
+          <Input id="name" type="text" name="age" />
         </div>
 
         <div className="space-y-1">
           <Label htmlFor="notes">Notes</Label>
-          <Textarea id="name" rows={3} />
+          <Textarea id="name" rows={3} name="notes" />
         </div>
       </div>
 
