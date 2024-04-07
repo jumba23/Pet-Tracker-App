@@ -22,8 +22,10 @@ const PetForm = ({ actionType }: PetFormProps) => {
       id: String(pets.length + 1),
       name: formData.get("name") as string,
       ownerName: formData.get("ownerName") as string,
-      imageUrl: formData.get("imageUrl") as string,
-      age: Number(formData.get("age")),
+      imageUrl:
+        (formData.get("imageUrl") as string) ||
+        "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
+      age: Number(formData.get("age") as string),
       notes: formData.get("notes") as string,
     };
     handleAddPet(newPet); // Add new pet
@@ -34,12 +36,12 @@ const PetForm = ({ actionType }: PetFormProps) => {
       <div className="space-y-3">
         <div className="space-y-1">
           <Label htmlFor="name">Name</Label>
-          <Input id="name" type="text" name="name" />
+          <Input id="name" type="text" name="name" required />
         </div>
 
         <div className="space-y-1">
           <Label htmlFor="ownerName">Owner Name</Label>
-          <Input id="name" type="text" name="ownerName" />
+          <Input id="name" type="text" name="ownerName" required />
         </div>
 
         <div className="space-y-1">
@@ -49,12 +51,12 @@ const PetForm = ({ actionType }: PetFormProps) => {
 
         <div className="space-y-1">
           <Label htmlFor="age">Age</Label>
-          <Input id="name" type="text" name="age" />
+          <Input id="name" type="text" name="age" required />
         </div>
 
         <div className="space-y-1">
           <Label htmlFor="notes">Notes</Label>
-          <Textarea id="name" rows={3} name="notes" />
+          <Textarea id="name" rows={3} name="notes" required />
         </div>
       </div>
 
