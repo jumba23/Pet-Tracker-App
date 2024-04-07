@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
@@ -8,6 +10,14 @@ type PetFormProps = {
 };
 
 const PetForm = ({ actionType }: PetFormProps) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget); // Get form data
+    const pet = Object.fromEntries(formData.entries()); // Convert form data to object
+    console.log(pet);
+  };
+
   return (
     <form className="flex flex-col">
       <div className="space-y-3">
