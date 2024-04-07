@@ -31,7 +31,14 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
 
   //event handlers / actions
   const handleAddPet = (newPet: Omit<Pet, "id">) => {
-    setPets((prev) => [...prev, newPet]);
+    setPets((prev) => [
+      ...prev,
+      // handle function will create a new pet object with a unique id
+      {
+        id: Date.now().toString(),
+        ...newPet,
+      },
+    ]);
   };
 
   const handleCheckoutPet = (id: string) => {
