@@ -8,9 +8,10 @@ import { Textarea } from "./ui/textarea";
 
 type PetFormProps = {
   actionType: "add" | "edit";
+  onFormSubmission: () => void;
 };
 
-const PetForm = ({ actionType }: PetFormProps) => {
+const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
   const { pets, handleAddPet } = usePetContext();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -29,6 +30,8 @@ const PetForm = ({ actionType }: PetFormProps) => {
       notes: formData.get("notes") as string,
     };
     handleAddPet(newPet); // Add new pet
+
+    onFormSubmission(); // Close the dialog
   };
 
   return (

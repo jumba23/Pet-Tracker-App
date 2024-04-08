@@ -45,7 +45,7 @@ const PetButton = ({ actionType, children, onClick }: PetButtonProps) => {
           </DialogTitle>
         </DialogHeader>
 
-        <PetForm actionType={actionType} />
+        <PetForm actionType={actionType} onFormSubmission={() => {}} />
       </DialogContent>
     </Dialog>
   );
