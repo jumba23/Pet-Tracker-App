@@ -12,7 +12,7 @@ type PetFormProps = {
 };
 
 const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
-  const { pets, handleAddPet } = usePetContext();
+  const { selectedPet, handleAddPet } = usePetContext();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,7 +39,13 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
       <div className="space-y-3">
         <div className="space-y-1">
           <Label htmlFor="name">Name</Label>
-          <Input id="name" type="text" name="name" required />
+          <Input
+            id="name"
+            type="text"
+            name="name"
+            required
+            defaultValue={actionType === "edit" ? "Fluffy" : ""}
+          />
         </div>
 
         <div className="space-y-1">
