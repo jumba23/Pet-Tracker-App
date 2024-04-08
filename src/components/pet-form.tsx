@@ -12,15 +12,14 @@ type PetFormProps = {
 };
 
 const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
-  const { selectedPet, handleAddPet, pets } = usePetContext();
+  const { selectedPet, handleAddPet, handleEditPet } = usePetContext();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget); // Get form data
     // const newPet = Object.fromEntries(formData.entries()); // Convert form data to object
-    const newPet = {
-      id: String(pets.length + 1),
+    const pet = {
       name: formData.get("name") as string,
       ownerName: formData.get("ownerName") as string,
       imageUrl:
@@ -29,8 +28,12 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
       age: Number(formData.get("age") as string),
       notes: formData.get("notes") as string,
     };
-    handleAddPet(newPet); // Add new pet
 
+    if (actionType === "add") {
+      handleAddPet(pet); // Add new pet
+    } else if (actionType === "edit") {
+      handleEditPet(selectedPet!.id, pet); // Edit pet
+    }
     onFormSubmission(); // Close the dialog
   };
 
