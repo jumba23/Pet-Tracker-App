@@ -9,6 +9,7 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import PetForm from "./pet-form";
+import { useState } from "react";
 
 type PetButtonProps = {
   actionType: "add" | "edit" | "checkout";
@@ -17,6 +18,8 @@ type PetButtonProps = {
 };
 
 const PetButton = ({ actionType, children, onClick }: PetButtonProps) => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
   if (actionType === "checkout") {
     return (
       <Button variant="secondary" onClick={onClick}>
@@ -26,7 +29,7 @@ const PetButton = ({ actionType, children, onClick }: PetButtonProps) => {
   }
 
   return (
-    <Dialog>
+    <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
       {/* adding "asChild" helps resolve hydration error since we have nested Button elements */}
       <DialogTrigger asChild>
         {actionType === "add" ? (
