@@ -12,7 +12,7 @@ type PetFormProps = {
 };
 
 const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
-  const { selectedPet, handleAddPet } = usePetContext();
+  const { selectedPet, handleAddPet, pets } = usePetContext();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
