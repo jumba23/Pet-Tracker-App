@@ -8,7 +8,9 @@ export const addPet = async (formData) => {
       name: formData.get("name"),
       ownerName: formData.get("ownerName"),
 
-      imageUrl: formData.get("imageUrl"),
+      imageUrl:
+        formData.get("imageUrl") ||
+        "https://bytegrad.com/corse-assets/react-next.js/pet-placeholder.jpg",
       age: parseInt(formData.get("age")),
       notes: formData.get("notes"),
     },
