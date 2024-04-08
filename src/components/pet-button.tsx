@@ -1,9 +1,10 @@
+"use client";
+
 import { PlusIcon } from "@radix-ui/react-icons";
 import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -48,7 +49,12 @@ const PetButton = ({ actionType, children, onClick }: PetButtonProps) => {
           </DialogTitle>
         </DialogHeader>
 
-        <PetForm actionType={actionType} onFormSubmission={() => {}} />
+        <PetForm
+          actionType={actionType}
+          onFormSubmission={() => {
+            setIsFormOpen(false);
+          }}
+        />
       </DialogContent>
     </Dialog>
   );
