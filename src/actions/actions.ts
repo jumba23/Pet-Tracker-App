@@ -2,7 +2,6 @@
 
 import { Pet } from "@prisma/client";
 import { revalidatePath } from "next/cache";
-import placeholderImage from "../../public/pet-placeholder.png";
 
 export const addPet = async (formData) => {
   await prisma?.pet.create({
