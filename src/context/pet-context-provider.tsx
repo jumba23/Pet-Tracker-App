@@ -22,9 +22,11 @@ type PetContextProviderProps = {
   children: React.ReactNode;
 };
 
-const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
+const PetContextProvider = ({
+  data: pets,
+  children,
+}: PetContextProviderProps) => {
   // state
-  const [pets, setPets] = useState(data);
   const [selectedPetId, setSelectedPetId] = useState<string | null>(null);
 
   //derived state
