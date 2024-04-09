@@ -1,9 +1,12 @@
 "use server";
 
+import { sleep } from "@/lib/utils";
 import { Pet } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export const addPet = async (formData) => {
+  await sleep(2000);
+
   await prisma?.pet.create({
     data: {
       name: formData.get("name"),
