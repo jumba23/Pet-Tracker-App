@@ -2,6 +2,7 @@
 
 import { Pet } from "@prisma/client";
 import { revalidatePath } from "next/cache";
+import placeholderImage from "../../public/pet-placeholder.png";
 
 export const addPet = async (formData) => {
   await prisma?.pet.create({
@@ -11,7 +12,7 @@ export const addPet = async (formData) => {
 
       imageUrl:
         formData.get("imageUrl") ||
-        "https://bytegrad.com/corse-assets/react-next.js/pet-placeholder.jpg",
+        "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
       age: parseInt(formData.get("age")),
       notes: formData.get("notes"),
     },
