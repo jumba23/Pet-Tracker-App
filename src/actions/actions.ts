@@ -7,18 +7,24 @@ import { revalidatePath } from "next/cache";
 export const addPet = async (formData) => {
   await sleep(2000);
 
-  await prisma?.pet.create({
-    data: {
-      name: formData.get("name"),
-      ownerName: formData.get("ownerName"),
+  try {
+    await prisma?.pet.create({
+      data: {
+        name: formData.get("name"),
+        ownerName: formData.get("ownerName"),
 
-      imageUrl:
-        formData.get("imageUrl") ||
-        "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
-      age: parseInt(formData.get("age")),
-      notes: formData.get("notes"),
-    },
-  });
+        imageUrl:
+          formData.get("imageUrl") ||
+          "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
+        age: parseInt(formData.get("age")),
+        notes: formData.get("notes"),
+      },
+    });
+  } catch (error) {
+    return {
+      message: "Failed to add pet",
+    };
+  }
 
   revalidatePath("/app", "layout");
 };
