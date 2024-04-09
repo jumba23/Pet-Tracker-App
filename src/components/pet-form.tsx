@@ -6,6 +6,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import { addPet } from "@/actions/actions";
+import PetFormBtn from "./pet-form-btn";
 
 type PetFormProps = {
   actionType: "add" | "edit";
@@ -79,9 +80,7 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
         </div>
       </div>
 
-      <Button type="submit" className="mt-5 self-end">
-        {actionType === "add" ? "Add a new pet" : "Edit Pet"}
-      </Button>
+      <PetFormBtn actionType={actionType} />
     </form>
   );
 };
