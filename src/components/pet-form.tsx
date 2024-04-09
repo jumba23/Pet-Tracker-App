@@ -19,7 +19,11 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
   return (
     <form
       action={async (formData) => {
-        await addPet(formData);
+        const error = await addPet(formData);
+        if (error) {
+          console.error(error.message);
+          return;
+        }
         onFormSubmission();
       }}
       className="flex flex-col"
