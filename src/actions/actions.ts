@@ -28,3 +28,18 @@ export const addPet = async (formData) => {
 
   revalidatePath("/app", "layout");
 };
+
+export const editPet = async (petId, formData) => {
+  prisma?.pet.update({
+    where: {
+      id: petId,
+    },
+    data: {
+      name: formData.get("name"),
+      ownerName: formData.get("ownerName"),
+      imageUrl: formData.get("imageUrl"),
+      age: parseInt(formData.get("age")),
+      notes: formData.get("notes"),
+    },
+  });
+};
