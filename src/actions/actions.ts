@@ -16,7 +16,7 @@ export const addPet = async (formData) => {
         imageUrl:
           formData.get("imageUrl") ||
           "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
-        // age: parseInt(formData.get("age")),
+        age: parseInt(formData.get("age")),
         notes: formData.get("notes"),
       },
     });
