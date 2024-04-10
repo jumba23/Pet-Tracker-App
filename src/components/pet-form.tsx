@@ -8,6 +8,7 @@ import { Textarea } from "./ui/textarea";
 import { addPet, editPet } from "@/actions/actions";
 import PetFormBtn from "./pet-form-btn";
 import { toast } from "sonner";
+import { on } from "events";
 
 type PetFormProps = {
   actionType: "add" | "edit";
@@ -20,6 +21,8 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
   return (
     <form
       action={async (formData) => {
+        onFormSubmission();
+
         const petData = {
           name: formData.get("name") as string,
           ownerName: formData.get("ownerName") as string,

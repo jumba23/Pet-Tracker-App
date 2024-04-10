@@ -11,6 +11,7 @@ import {
 } from "./ui/dialog";
 import PetForm from "./pet-form";
 import { useState } from "react";
+import { flushSync } from "react-dom";
 
 type PetButtonProps = {
   actionType: "add" | "edit" | "checkout";
@@ -58,7 +59,10 @@ const PetButton = ({
         <PetForm
           actionType={actionType}
           onFormSubmission={() => {
-            setIsFormOpen(false);
+            // react-dom function that helps to specify which state should be updated first
+            flushSync(() => {
+              setIsFormOpen(false);
+            });
           }}
         />
       </DialogContent>
