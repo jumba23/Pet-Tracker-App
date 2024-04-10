@@ -1,6 +1,6 @@
 "use client";
 
-import { addPet, editPet } from "@/actions/actions";
+import { addPet, deletePet, editPet } from "@/actions/actions";
 import { Pet } from "@/lib/types";
 import { createContext, useOptimistic, useState } from "react";
 import { toast } from "sonner";
@@ -53,8 +53,8 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
     }
   };
 
-  const handleCheckoutPet = (id: string) => {
-    setPets((prev) => prev.filter((pet) => pet.id !== id));
+  const handleCheckoutPet = async (petId: string) => {
+    await deletePet(petId);
     setSelectedPetId(null);
   };
 

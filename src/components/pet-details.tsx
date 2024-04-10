@@ -62,7 +62,7 @@ const TopBar = ({ pet }: Props) => {
           actionType="checkout"
           onClick={async () => {
             startTransition(async () => {
-              await deletePet(pet.id);
+              handleCheckoutPet(pet.id);
             });
           }}
         >
