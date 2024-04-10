@@ -21,10 +21,10 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
     <form
       action={async (formData) => {
         if (actionType === "add") {
-          handleAddPet(formData);
+          await handleAddPet(formData);
           onFormSubmission();
         } else if (actionType === "edit") {
-          handleEditPet(selectedPet?.id, formData);
+          await handleEditPet(selectedPet?.id, formData);
           onFormSubmission();
         }
       }}
