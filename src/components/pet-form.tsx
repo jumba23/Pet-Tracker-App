@@ -20,11 +20,21 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
   return (
     <form
       action={async (formData) => {
+        const petData = {
+          name: formData.get("name") as string,
+          ownerName: formData.get("ownerName") as string,
+          imageUrl:
+            (formData.get("imageUrl") as string) ||
+            "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
+          age: Number(formData.get("age")),
+          notes: formData.get("notes") as string,
+        };
+
         if (actionType === "add") {
-          await handleAddPet(formData);
+          await handleAddPet(petData);
           onFormSubmission();
         } else if (actionType === "edit") {
-          await handleEditPet(selectedPet?.id, formData);
+          await handleEditPet(selectedPet!.id, petData);
           onFormSubmission();
         }
       }}
