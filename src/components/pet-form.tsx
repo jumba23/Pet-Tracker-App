@@ -32,11 +32,11 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
 
         if (actionType === "add") {
           await handleAddPet(petData);
-          onFormSubmission();
         } else if (actionType === "edit") {
           await handleEditPet(selectedPet!.id, petData);
-          onFormSubmission();
         }
+        //no longer needed - loading state indicator
+        // onFormSubmission();
       }}
       className="flex flex-col"
     >
