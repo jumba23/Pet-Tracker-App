@@ -15,24 +15,16 @@ type PetFormProps = {
 };
 
 const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
-  const { selectedPet } = usePetContext();
+  const { selectedPet, handleAddPet, handleEditPet } = usePetContext();
 
   return (
     <form
       action={async (formData) => {
         if (actionType === "add") {
-          const error = await addPet(formData);
-          if (error) {
-            toast.warning(error.message);
-            return;
-          }
+          handleAddPet(formData);
           onFormSubmission();
         } else if (actionType === "edit") {
-          const error = await editPet(selectedPet?.id, formData);
-          if (error) {
-            toast.warning(error.message);
-            return;
-          }
+          handleEditPet(selectedPet?.id, formData);
           onFormSubmission();
         }
       }}

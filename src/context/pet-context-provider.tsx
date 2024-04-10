@@ -1,11 +1,12 @@
 "use client";
 
-import { addPet } from "@/actions/actions";
+import { addPet, editPet } from "@/actions/actions";
 import { Pet } from "@/lib/types";
-import { createContext, useState } from "react";
+import { createContext, useOptimistic, useState } from "react";
+import { toast } from "sonner";
 
 type TPetContext = {
-  pets: Pet[];
+  data: Pet[];
   selectedPetId: string | null;
   selectedPet: Pet | undefined;
   numberOfPets: number;
@@ -22,46 +23,34 @@ type PetContextProviderProps = {
   children: React.ReactNode;
 };
 
-const PetContextProvider = ({
-  data: pets,
-  children,
-}: PetContextProviderProps) => {
+const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
   // state
+
+  // server-side hook
+  const [optimisticPets, setOptimisticPets] = useOptimistic(data);
+
+  //client-side hook
   const [selectedPetId, setSelectedPetId] = useState<string | null>(null);
 
   //derived state
-  const selectedPet = pets.find((pet) => pet.id === selectedPetId);
-  const numberOfPets = pets.length;
+  const selectedPet = optimisticPets.find((pet) => pet.id === selectedPetId);
+  const numberOfPets = optimisticPets.length;
 
   //event handlers / actions
   const handleAddPet = async (newPet: Omit<Pet, "id">) => {
-    //API call to add a new pet
-
-    // setPets((prev) => [
-    //   ...prev,
-    //   // handle function will create a new pet object with a unique id
-    //   {
-    //     id: Date.now().toString(),
-    //     ...newPet,
-    //   },
-    // ]);
-
-    //DB call to add a new pet
-    await addPet(newPet);
+    const error = await addPet(formData);
+    if (error) {
+      toast.warning(error.message);
+      return;
+    }
   };
 
-  const handleEditPet = (petId: string, newPetData: Omit<Pet, "id">) => {
-    setPets((prev) =>
-      prev.map((pet) => {
-        if (pet.id === petId) {
-          return {
-            id: petId,
-            ...newPetData,
-          };
-        }
-        return pet;
-      })
-    );
+  const handleEditPet = async (petId: string, newPetData: Omit<Pet, "id">) => {
+    const error = await editPet(selectedPet?.id, formData);
+    if (error) {
+      toast.warning(error.message);
+      return;
+    }
   };
 
   const handleCheckoutPet = (id: string) => {
@@ -77,7 +66,7 @@ const PetContextProvider = ({
   return (
     <PetContext.Provider
       value={{
-        pets,
+        data,
         selectedPetId,
         handleSetSelectedPetId,
         handleAddPet,
