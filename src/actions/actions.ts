@@ -54,3 +54,20 @@ export const editPet = async (petId, formData) => {
   // re-render the layout to show the updated pet
   revalidatePath("/app", "layout");
 };
+
+export const deletePet = async (petId) => {
+  try {
+    await prisma?.pet.delete({
+      where: {
+        id: petId,
+      },
+    });
+  } catch (error) {
+    return {
+      message: "Failed to delete pet",
+    };
+  }
+
+  // re-render the layout to show the updated pet list
+  revalidatePath("/app", "layout");
+};
