@@ -26,10 +26,12 @@ type PetContextProviderProps = {
 const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
   // state
 
-  // server-side hook
-  const [optimisticPets, setOptimisticPets] = useOptimistic(data);
-
-  //client-side hook
+  const [optimisticPets, setOptimisticPets] = useOptimistic(
+    data,
+    (state, newPet) => {
+      return [...state, newPet];
+    }
+  );
   const [selectedPetId, setSelectedPetId] = useState<string | null>(null);
 
   //derived state
@@ -38,6 +40,7 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
 
   //event handlers / actions
   const handleAddPet = async (newPet: Omit<Pet, "id">) => {
+    setOptimisticPets(newPet);
     const error = await addPet(newPet);
     if (error) {
       toast.warning(error.message);
