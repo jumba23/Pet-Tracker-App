@@ -6,7 +6,7 @@ import { createContext, useOptimistic, useState } from "react";
 import { toast } from "sonner";
 
 type TPetContext = {
-  data: Pet[];
+  pets: Pet[];
   selectedPetId: string | null;
   selectedPet: Pet | undefined;
   numberOfPets: number;
@@ -38,7 +38,7 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
 
   //event handlers / actions
   const handleAddPet = async (newPet: Omit<Pet, "id">) => {
-    const error = await addPet(formData);
+    const error = await addPet(newPet);
     if (error) {
       toast.warning(error.message);
       return;
@@ -46,7 +46,7 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
   };
 
   const handleEditPet = async (petId: string, newPetData: Omit<Pet, "id">) => {
-    const error = await editPet(selectedPet?.id, formData);
+    const error = await editPet(petId, newPetData);
     if (error) {
       toast.warning(error.message);
       return;
@@ -66,7 +66,7 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
   return (
     <PetContext.Provider
       value={{
-        data,
+        pets: optimisticPets,
         selectedPetId,
         handleSetSelectedPetId,
         handleAddPet,

@@ -4,21 +4,12 @@ import { sleep } from "@/lib/utils";
 import { Pet } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
-export const addPet = async (formData) => {
+export const addPet = async (pet) => {
   await sleep(2000);
 
   try {
     await prisma?.pet.create({
-      data: {
-        name: formData.get("name"),
-        ownerName: formData.get("ownerName"),
-
-        imageUrl:
-          formData.get("imageUrl") ||
-          "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
-        age: parseInt(formData.get("age")),
-        notes: formData.get("notes"),
-      },
+      data: pet,
     });
   } catch (error) {
     return {
@@ -29,21 +20,13 @@ export const addPet = async (formData) => {
   revalidatePath("/app", "layout");
 };
 
-export const editPet = async (petId, formData) => {
+export const editPet = async (petId, newPetData) => {
   try {
     await prisma?.pet.update({
       where: {
         id: petId,
       },
-      data: {
-        name: formData.get("name"),
-        ownerName: formData.get("ownerName"),
-        imageUrl:
-          formData.get("imageUrl") ||
-          "      https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png      ",
-        age: parseInt(formData.get("age")),
-        notes: formData.get("notes"),
-      },
+      data: newPetData,
     });
   } catch (error) {
     return {
