@@ -8,13 +8,13 @@ import { toast } from "sonner";
 
 type TPetContext = {
   pets: Pet[];
-  selectedPetId: string | null;
+  selectedPetId: Pet["id"] | null;
   selectedPet: Pet | undefined;
   numberOfPets: number;
-  handleSetSelectedPetId: (id: string) => void;
-  handleCheckoutPet: (id: string) => Promise<void>;
+  handleSetSelectedPetId: (id: Pet["id"]) => void;
+  handleCheckoutPet: (id: Pet["id"]) => Promise<void>;
   handleAddPet: (newPet: PetEssentials) => Promise<void>;
-  handleEditPet: (petId: string, newPetData: PetEssentials) => Promise<void>;
+  handleEditPet: (petId: Pet["id"], newPetData: PetEssentials) => Promise<void>;
 };
 
 export const PetContext = createContext<TPetContext | null>(null);
@@ -60,7 +60,7 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
     }
   };
 
-  const handleEditPet = async (petId: string, newPetData: PetEssentials) => {
+  const handleEditPet = async (petId: Pet["id"], newPetData: PetEssentials) => {
     setOptimisticPets({
       action: "edit",
       payload: { id: petId, ...newPetData },
@@ -72,7 +72,7 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
     }
   };
 
-  const handleCheckoutPet = async (petId: string) => {
+  const handleCheckoutPet = async (petId: Pet["id"]) => {
     setOptimisticPets({ action: "delete", payload: petId });
     const error = await deletePet(petId);
     if (error) {
@@ -83,7 +83,7 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
   };
 
   //use handle function to set selected pet id
-  const handleSetSelectedPetId = (id: string) => {
+  const handleSetSelectedPetId = (id: Pet["id"]) => {
     setSelectedPetId(id);
   };
 
