@@ -28,7 +28,10 @@ const petFormSchema = z.object({
     .trim()
     .min(1, { message: "Owner Name is required" })
     .max(100),
-  imageUrl: z.string().trim().url({ message: "Image Url is not a valid URL" }),
+  imageUrl: z.union([
+    z.literal(""),
+    z.string().trim().url({ message: "Image Url is not a valid URL" }),
+  ]),
   age: z
     .number()
     .int()
