@@ -12,6 +12,14 @@ type PetFormProps = {
   onFormSubmission: () => void;
 };
 
+type TPetFormData = {
+  name: string;
+  ownerName: string;
+  imageUrl: string;
+  age: number;
+  notes: string;
+};
+
 const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
   const { selectedPet, handleAddPet, handleEditPet } = usePetContext();
 
@@ -19,7 +27,13 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm<{
+    name: string;
+    ownerName: string;
+    imageUrl: string;
+    age: number;
+    notes: string;
+  }>();
 
   return (
     <form
