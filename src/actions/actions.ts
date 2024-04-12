@@ -5,7 +5,7 @@ import { Pet } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export const addPet = async (pet) => {
-  await sleep(2000);
+  await sleep(1000);
 
   try {
     await prisma?.pet.create({
