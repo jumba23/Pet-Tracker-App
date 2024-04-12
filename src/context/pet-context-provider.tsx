@@ -1,7 +1,7 @@
 "use client";
 
 import { addPet, deletePet, editPet } from "@/actions/actions";
-import { Pet } from "@/lib/types";
+import { Pet } from "@prisma/client";
 import { createContext, useOptimistic, useState } from "react";
 import { toast } from "sonner";
 
