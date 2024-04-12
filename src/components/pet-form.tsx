@@ -27,12 +27,20 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
   // we are not using it for loading state since we are using optimistic UI updates
   const {
     register,
+    trigger,
     formState: { errors, isSubmitting },
   } = useForm<TPetFormData>();
 
   return (
     <form
+      // Server side action
       action={async (formData) => {
+        //validation
+        const result = await trigger();
+        if (!result) {
+          return;
+        }
+
         onFormSubmission();
 
         const petData = {
@@ -60,7 +68,13 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
           <Label htmlFor="name">Name</Label>
           <Input
             id="name"
-            {...register("name")} // register is a react-hook-form function that registers the input with the form
+            {...register("name", {
+              required: "Name is required",
+              minLength: {
+                value: 3,
+                message: "Name should be at least 3 characters long",
+              },
+            })} // register is a react-hook-form function that registers the input with the form
             // type="text" - not needed - react-hook-form will automatically use the type if not provided
             // name="name" - not needed - react-hook-form will automatically use the id if name is not provided
             // required - not needed - native HTML validation
