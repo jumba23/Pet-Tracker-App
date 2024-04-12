@@ -51,9 +51,10 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
           <Label htmlFor="name">Name</Label>
           <Input
             id="name"
-            type="text"
-            name="name"
-            required
+            {...register("name")} // register is a react-hook-form function that registers the input with the form
+            // type="text" - not needed - react-hook-form will automatically use the type if not provided
+            // name="name" - not needed - react-hook-form will automatically use the id if name is not provided
+            // required - not needed - native HTML validation
             defaultValue={actionType === "edit" ? selectedPet?.name : ""}
           />
           {errors.name && <p className="text-red-500">{errors.name.message}</p>}
@@ -62,10 +63,8 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
         <div className="space-y-1">
           <Label htmlFor="ownerName">Owner Name</Label>
           <Input
-            id="name"
-            type="text"
-            name="ownerName"
-            required
+            id="ownerName"
+            {...register("ownerName")}
             defaultValue={actionType === "edit" ? selectedPet?.ownerName : ""}
           />{" "}
           {errors.ownerName && (
@@ -77,8 +76,7 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
           <Label htmlFor="imageUrl">Image Url</Label>
           <Input
             id="name"
-            type="text"
-            name="imageUrl"
+            {...register("imageUrl")}
             defaultValue={actionType === "edit" ? selectedPet?.imageUrl : ""}
           />
           {errors.imageUrl && (
@@ -89,10 +87,8 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
         <div className="space-y-1">
           <Label htmlFor="age">Age</Label>
           <Input
-            id="name"
-            type="text"
-            name="age"
-            required
+            id="age"
+            {...register("age")}
             defaultValue={actionType === "edit" ? selectedPet?.age : ""}
           />
           {errors.age && <p className="text-red-500">{errors.age.message}</p>}
