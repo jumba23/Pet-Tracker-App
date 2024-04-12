@@ -1,6 +1,7 @@
 "use client";
 
 import { addPet, deletePet, editPet } from "@/actions/actions";
+import { PetEssentials } from "@/lib/types";
 import { Pet } from "@prisma/client";
 import { createContext, useOptimistic, useState } from "react";
 import { toast } from "sonner";
@@ -12,8 +13,8 @@ type TPetContext = {
   numberOfPets: number;
   handleSetSelectedPetId: (id: string) => void;
   handleCheckoutPet: (id: string) => Promise<void>;
-  handleAddPet: (newPet: Pet) => Promise<void>;
-  handleEditPet: (petId: string, newPetData: Omit<Pet, "id">) => Promise<void>;
+  handleAddPet: (newPet: PetEssentials) => Promise<void>;
+  handleEditPet: (petId: string, newPetData: PetEssentials) => Promise<void>;
 };
 
 export const PetContext = createContext<TPetContext | null>(null);
@@ -50,7 +51,7 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
   const numberOfPets = optimisticPets.length;
 
   //event handlers / actions
-  const handleAddPet = async (newPet: Pet) => {
+  const handleAddPet = async (newPet: PetEssentials) => {
     setOptimisticPets({ action: "add", payload: newPet });
     const error = await addPet(newPet);
     if (error) {
@@ -59,7 +60,7 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
     }
   };
 
-  const handleEditPet = async (petId: string, newPetData: Omit<Pet, "id">) => {
+  const handleEditPet = async (petId: string, newPetData: PetEssentials) => {
     setOptimisticPets({
       action: "edit",
       payload: { id: petId, ...newPetData },
