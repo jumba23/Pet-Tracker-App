@@ -23,9 +23,10 @@ type TPetFormData = {
 const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
   const { selectedPet, handleAddPet, handleEditPet } = usePetContext();
 
+  // We are using react-hook-form to handle form state and validation
+  // we are not using it for loading state since we are using optimistic UI updates
   const {
     register,
-    handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<TPetFormData>();
 
