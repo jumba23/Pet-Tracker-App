@@ -12,7 +12,7 @@ type TPetContext = {
   numberOfPets: number;
   handleSetSelectedPetId: (id: string) => void;
   handleCheckoutPet: (id: string) => Promise<void>;
-  handleAddPet: (newPet: Omit<Pet, "id">) => Promise<void>;
+  handleAddPet: (newPet: Pet) => Promise<void>;
   handleEditPet: (petId: string, newPetData: Omit<Pet, "id">) => Promise<void>;
 };
 
@@ -50,7 +50,7 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
   const numberOfPets = optimisticPets.length;
 
   //event handlers / actions
-  const handleAddPet = async (newPet: Omit<Pet, "id">) => {
+  const handleAddPet = async (newPet: Pet) => {
     setOptimisticPets({ action: "add", payload: newPet });
     const error = await addPet(newPet);
     if (error) {
