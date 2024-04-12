@@ -17,6 +17,6 @@ model Pet {
   imageUrl  String
   age       Int
   notes     String
-  upadtedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 }
