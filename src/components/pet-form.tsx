@@ -56,6 +56,7 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
             required
             defaultValue={actionType === "edit" ? selectedPet?.name : ""}
           />
+          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
         </div>
 
         <div className="space-y-1">
@@ -66,7 +67,10 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
             name="ownerName"
             required
             defaultValue={actionType === "edit" ? selectedPet?.ownerName : ""}
-          />
+          />{" "}
+          {errors.ownerName && (
+            <p className="text-red-500">{errors.ownerName.message}</p>
+          )}
         </div>
 
         <div className="space-y-1">
@@ -77,6 +81,9 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
             name="imageUrl"
             defaultValue={actionType === "edit" ? selectedPet?.imageUrl : ""}
           />
+          {errors.imageUrl && (
+            <p className="text-red-500">{errors.imageUrl.message}</p>
+          )}
         </div>
 
         <div className="space-y-1">
@@ -88,6 +95,7 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
             required
             defaultValue={actionType === "edit" ? selectedPet?.age : ""}
           />
+          {errors.age && <p className="text-red-500">{errors.age.message}</p>}
         </div>
 
         <div className="space-y-1">
@@ -99,6 +107,9 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
             required
             defaultValue={actionType === "edit" ? selectedPet?.notes : ""}
           />
+          {errors.notes && (
+            <p className="text-red-500">{errors.notes.message}</p>
+          )}
         </div>
       </div>
 
