@@ -73,7 +73,11 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
 
   const handleCheckoutPet = async (petId: string) => {
     setOptimisticPets({ action: "delete", payload: petId });
-    await deletePet(petId);
+    const error = await deletePet(petId);
+    if (error) {
+      toast.warning(error.message);
+      return;
+    }
     setSelectedPetId(null);
   };
 
