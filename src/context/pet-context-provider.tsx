@@ -49,6 +49,10 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
   };
 
   const handleEditPet = async (petId: string, newPetData: Omit<Pet, "id">) => {
+    setOptimisticPets({
+      action: "edit",
+      payload: { id: petId, ...newPetData },
+    });
     const error = await editPet(petId, newPetData);
     if (error) {
       toast.warning(error.message);
