@@ -28,8 +28,19 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
 
   const [optimisticPets, setOptimisticPets] = useOptimistic(
     data,
-    (state, newPet) => {
-      return [...state, { ...newPet, id: Math.random().toString() }];
+    (state, { action, payload }) => {
+      switch (action) {
+        case "add":
+          return [...state, { ...payload, id: Math.random().toString() }];
+        case "edit":
+          return state.map((pet) =>
+            pet.id === payload.id ? { ...pet, ...payload } : pet
+          );
+        case "delete":
+          return state.filter((pet) => pet.id !== payload);
+        default:
+          return state;
+      }
     }
   );
   const [selectedPetId, setSelectedPetId] = useState<string | null>(null);
