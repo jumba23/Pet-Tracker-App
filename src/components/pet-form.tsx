@@ -14,14 +14,6 @@ type PetFormProps = {
   onFormSubmission: () => void;
 };
 
-type TPetFormData = {
-  name: string;
-  ownerName: string;
-  imageUrl: string;
-  age: number;
-  notes: string;
-};
-
 //we are using external validation library zod to validate the form
 const petFormSchema = z.object({
   name: z.string().trim().min(1, { message: "Name is required" }).max(100),
@@ -41,6 +33,9 @@ const petFormSchema = z.object({
     .min(0, { message: "Age must be a positive number" }),
   notes: z.union([z.literal(""), z.string().trim().max(1000)]),
 });
+
+// zod will give us the type of the form data
+type TPetFormData = z.infer<typeof petFormSchema>;
 
 const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
   const { selectedPet, handleAddPet, handleEditPet } = usePetContext();
