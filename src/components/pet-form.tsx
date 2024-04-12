@@ -15,24 +15,32 @@ type PetFormProps = {
 };
 
 //we are using external validation library zod to validate the form
-const petFormSchema = z.object({
-  name: z.string().trim().min(1, { message: "Name is required" }).max(100),
-  ownerName: z
-    .string()
-    .trim()
-    .min(1, { message: "Owner Name is required" })
-    .max(100),
-  imageUrl: z.union([
-    z.literal(""),
-    z.string().trim().url({ message: "Image Url is not a valid URL" }),
-  ]),
-  age: z.coerce
-    .number()
-    .int()
-    .positive()
-    .min(0, { message: "Age must be a positive number" }),
-  notes: z.union([z.literal(""), z.string().trim().max(1000)]),
-});
+const petFormSchema = z
+  .object({
+    name: z.string().trim().min(1, { message: "Name is required" }).max(100),
+    ownerName: z
+      .string()
+      .trim()
+      .min(1, { message: "Owner Name is required" })
+      .max(100),
+    imageUrl: z.union([
+      z.literal(""),
+      z.string().trim().url({ message: "Image Url is not a valid URL" }),
+    ]),
+    age: z.coerce
+      .number()
+      .int()
+      .positive()
+      .min(0, { message: "Age must be a positive number" }),
+    notes: z.union([z.literal(""), z.string().trim().max(1000)]),
+  })
+  //transform the data before validation - we can customize the data before validation
+  .transform((data) => ({
+    ...data,
+    imageUrl:
+      data.imageUrl.trim() ||
+      "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
+  }));
 
 // zod will give us the type of the form data
 type TPetFormData = z.infer<typeof petFormSchema>;
@@ -45,6 +53,7 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
   const {
     register,
     trigger,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm<TPetFormData>({
     //this is we are connecting external validation library zod to react-hook-form
@@ -55,7 +64,7 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
     <form
       // Server side action
       action={async (formData) => {
-        //validation
+        //validation trigger
         const result = await trigger();
         if (!result) {
           return;
@@ -63,15 +72,18 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
 
         onFormSubmission();
 
-        const petData = {
-          name: formData.get("name") as string,
-          ownerName: formData.get("ownerName") as string,
-          imageUrl:
-            (formData.get("imageUrl") as string) ||
-            "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
-          age: Number(formData.get("age")),
-          notes: formData.get("notes") as string,
-        };
+        // const petData = {
+        //   name: formData.get("name") as string,
+        //   ownerName: formData.get("ownerName") as string,
+        //   imageUrl:
+        //     (formData.get("imageUrl") as string) ||
+        //     "https://bytegrad.com/course-assets/react-nextjs/pet-placeholder.png",
+        //   age: Number(formData.get("age")),
+        //   notes: formData.get("notes") as string,
+        // };
+
+        //we are using react-hook-form getValues to get the form data using zod schema
+        const petData = getValues();
 
         if (actionType === "add") {
           await handleAddPet(petData);
