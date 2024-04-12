@@ -6,6 +6,7 @@ import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import PetFormBtn from "./pet-form-btn";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 type PetFormProps = {
   actionType: "add" | "edit";
@@ -19,6 +20,22 @@ type TPetFormData = {
   age: number;
   notes: string;
 };
+
+const petFormSchema = z.object({
+  name: z.string().trim().min(1, { message: "Name is required" }).max(100),
+  ownerName: z
+    .string()
+    .trim()
+    .min(1, { message: "Owner Name is required" })
+    .max(100),
+  imageUrl: z.string().trim().url({ message: "Image Url is not a valid URL" }),
+  age: z
+    .number()
+    .int()
+    .positive()
+    .min(0, { message: "Age must be a positive number" }),
+  notes: z.string().trim().max(1000),
+});
 
 const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
   const { selectedPet, handleAddPet, handleEditPet } = usePetContext();
