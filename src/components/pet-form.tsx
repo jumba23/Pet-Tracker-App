@@ -7,6 +7,7 @@ import { Textarea } from "./ui/textarea";
 import PetFormBtn from "./pet-form-btn";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type PetFormProps = {
   actionType: "add" | "edit";
@@ -50,7 +51,10 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
     register,
     trigger,
     formState: { errors, isSubmitting },
-  } = useForm<TPetFormData>();
+  } = useForm<TPetFormData>({
+    //this is we are connecting external validation library zod to react-hook-form
+    resolver: zodResolver(petFormSchema),
+  });
 
   return (
     <form
@@ -89,13 +93,7 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
           <Label htmlFor="name">Name</Label>
           <Input
             id="name"
-            {...register("name", {
-              required: "Name is required",
-              minLength: {
-                value: 3,
-                message: "Name should be at least 3 characters long",
-              },
-            })} // register is a react-hook-form function that registers the input with the form
+            {...register("name")} // register is a react-hook-form function that registers the input with the form
             // type="text" - not needed - react-hook-form will automatically use the type if not provided
             // name="name" - not needed - react-hook-form will automatically use the id if name is not provided
             // required - not needed - native HTML validation
@@ -106,16 +104,7 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
 
         <div className="space-y-1">
           <Label htmlFor="ownerName">Owner Name</Label>
-          <Input
-            id="ownerName"
-            {...register("ownerName", {
-              required: "Owner Name is required",
-              maxLength: {
-                value: 5,
-                message: "Owner Name must be less than 5 characters long",
-              },
-            })}
-          />
+          <Input id="ownerName" {...register("ownerName")} />
           {errors.ownerName && (
             <p className="text-red-500">{errors.ownerName.message}</p>
           )}
