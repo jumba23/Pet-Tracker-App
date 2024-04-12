@@ -85,7 +85,16 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
 
         <div className="space-y-1">
           <Label htmlFor="ownerName">Owner Name</Label>
-          <Input id="ownerName" {...register("ownerName")} />{" "}
+          <Input
+            id="ownerName"
+            {...register("ownerName", {
+              required: "Owner Name is required",
+              maxLength: {
+                value: 5,
+                message: "Owner Name must be less than 5 characters long",
+              },
+            })}
+          />
           {errors.ownerName && (
             <p className="text-red-500">{errors.ownerName.message}</p>
           )}
