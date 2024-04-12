@@ -21,6 +21,7 @@ type TPetFormData = {
   notes: string;
 };
 
+//we are using external validation library zod to validate the form
 const petFormSchema = z.object({
   name: z.string().trim().min(1, { message: "Name is required" }).max(100),
   ownerName: z
@@ -32,12 +33,12 @@ const petFormSchema = z.object({
     z.literal(""),
     z.string().trim().url({ message: "Image Url is not a valid URL" }),
   ]),
-  age: z
+  age: z.coerce
     .number()
     .int()
     .positive()
     .min(0, { message: "Age must be a positive number" }),
-  notes: z.string().trim().max(1000),
+  notes: z.union([z.literal(""), z.string().trim().max(1000)]),
 });
 
 const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
