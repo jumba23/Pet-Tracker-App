@@ -27,13 +27,7 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<{
-    name: string;
-    ownerName: string;
-    imageUrl: string;
-    age: number;
-    notes: string;
-  }>();
+  } = useForm<TPetFormData>();
 
   return (
     <form
