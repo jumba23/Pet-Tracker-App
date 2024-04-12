@@ -5,6 +5,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import PetFormBtn from "./pet-form-btn";
+import { useForm } from "react-hook-form";
 
 type PetFormProps = {
   actionType: "add" | "edit";
@@ -13,6 +14,12 @@ type PetFormProps = {
 
 const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
   const { selectedPet, handleAddPet, handleEditPet } = usePetContext();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
   return (
     <form
