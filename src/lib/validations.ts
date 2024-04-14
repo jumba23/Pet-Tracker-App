@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { DEFAULT_PET_IMAGE } from "./constants";
 
+export const petIdSchema = z.string().uuid();
+
 //we are using external validation library zod to validate the form
 export const petFormSchema = z
   .object({
