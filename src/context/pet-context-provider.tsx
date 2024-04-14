@@ -53,6 +53,7 @@ const PetContextProvider = ({ data, children }: PetContextProviderProps) => {
   //event handlers / actions
   const handleAddPet = async (newPet: PetEssentials) => {
     setOptimisticPets({ action: "add", payload: newPet });
+    //SERVER SIDE ACTION
     const error = await addPet(newPet);
     if (error) {
       toast.warning(error.message);
