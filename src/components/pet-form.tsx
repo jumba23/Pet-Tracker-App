@@ -9,40 +9,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DEFAULT_PET_IMAGE } from "@/lib/constants";
+import { TPetFormData, petFormSchema } from "@/lib/validations";
 
 type PetFormProps = {
   actionType: "add" | "edit";
   onFormSubmission: () => void;
 };
-
-//we are using external validation library zod to validate the form
-const petFormSchema = z
-  .object({
-    name: z.string().trim().min(1, { message: "Name is required" }).max(100),
-    ownerName: z
-      .string()
-      .trim()
-      .min(1, { message: "Owner Name is required" })
-      .max(100),
-    imageUrl: z.union([
-      z.literal(""),
-      z.string().trim().url({ message: "Image Url is not a valid URL" }),
-    ]),
-    age: z.coerce
-      .number()
-      .int()
-      .positive()
-      .min(0, { message: "Age must be a positive number" }),
-    notes: z.union([z.literal(""), z.string().trim().max(1000)]),
-  })
-  //transform the data before validation - we can customize the data before validation
-  .transform((data) => ({
-    ...data,
-    imageUrl: data.imageUrl.trim() || DEFAULT_PET_IMAGE,
-  }));
-
-// zod will give us the type of the form data
-type TPetFormData = z.infer<typeof petFormSchema>;
 
 const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
   const { selectedPet, handleAddPet, handleEditPet } = usePetContext();
