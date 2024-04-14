@@ -1,3 +1,4 @@
+import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 
@@ -13,6 +14,8 @@ const AuthForm = () => {
         <Label htmlFor="password">Password</Label>
         <Input type="password" id="password" />
       </div>
+
+      <Button>Log In</Button>
     </form>
   );
 };
