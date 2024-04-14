@@ -6,7 +6,7 @@ import { petFormSchema } from "@/lib/validations";
 import { Pet } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
-export const addPet = async (pet: PetEssentials) => {
+export const addPet = async (pet: unknown) => {
   await sleep(1000);
 
   // here we are using zod to validate the form data on server side
