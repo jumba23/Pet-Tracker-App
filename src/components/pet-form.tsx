@@ -62,7 +62,7 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
   return (
     <form
       // Server side action
-      action={async (formData) => {
+      action={async () => {
         //validation trigger
         const result = await trigger();
         if (!result) {
@@ -83,6 +83,7 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
 
         //we are using react-hook-form getValues to get the form data using zod schema
         const petData = getValues();
+        petData.imageUrl = petData.imageUrl.trim() || DEFAULT_PET_IMAGE;
 
         if (actionType === "add") {
           await handleAddPet(petData);
