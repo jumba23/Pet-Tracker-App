@@ -30,7 +30,7 @@ export const addPet = async (pet: unknown) => {
   revalidatePath("/app", "layout");
 };
 
-export const editPet = async (petId: Pet["id"], newPetData: PetEssentials) => {
+export const editPet = async (petId: unknown, newPetData: unknown) => {
   await sleep(1000);
   try {
     await prisma?.pet.update({
@@ -49,7 +49,7 @@ export const editPet = async (petId: Pet["id"], newPetData: PetEssentials) => {
   revalidatePath("/app", "layout");
 };
 
-export const deletePet = async (petId: Pet["id"]) => {
+export const deletePet = async (petId: unknown) => {
   await sleep(1000);
 
   try {
