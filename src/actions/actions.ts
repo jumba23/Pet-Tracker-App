@@ -19,7 +19,7 @@ export const addPet = async (pet: PetEssentials) => {
 
   try {
     await prisma?.pet.create({
-      data: pet,
+      data: validatedPet.data,
     });
   } catch (error) {
     return {
