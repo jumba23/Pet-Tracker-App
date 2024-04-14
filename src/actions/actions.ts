@@ -64,10 +64,17 @@ export const editPet = async (petId: unknown, newPetData: unknown) => {
 export const deletePet = async (petId: unknown) => {
   await sleep(1000);
 
+  const validatedPetId = petIdSchema.safeParse(petId);
+  if (!validatedPetId.success) {
+    return {
+      message: "Invalid pet id",
+    };
+  }
+
   try {
     await prisma?.pet.delete({
       where: {
-        id: petId,
+        id: validatedPetId.data,
       },
     });
   } catch (error) {
