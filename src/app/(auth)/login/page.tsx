@@ -1,5 +1,11 @@
+import H1 from "@/components/h1";
+
 const Login = () => {
-  return <div>Login Page</div>;
+  return (
+    <main>
+      <H1>Login Page</H1>
+    </main>
+  );
 };
 
 export default Login;
