@@ -5,17 +5,17 @@ import Link from "next/link";
 const Login = () => {
   return (
     <main>
-      <H1 className="text-center">Login Page</H1>
+      <H1 className="mb-5 text-center">Login Page</H1>
 
       <AuthForm />
 
-      <p>
+      <p className="mt-6 text-sm text-zinc-500">
         No account yet?{" "}
         {/* <a href="/sign-up" className="text-blue-500">
           Sign up
         </a> */}
         {/* Replace the anchor tag with the Link component. Link component will pre-fetch */}
-        <Link href="/signup" className="mt-6 text-sm text-zinc-500">
+        <Link href="/signup" className="font-medium">
           Sign up
         </Link>
       </p>
