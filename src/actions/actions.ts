@@ -2,11 +2,20 @@
 
 import { PetEssentials } from "@/lib/types";
 import { sleep } from "@/lib/utils";
+import { petFormSchema } from "@/lib/validations";
 import { Pet } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export const addPet = async (pet: PetEssentials) => {
   await sleep(1000);
+
+  // here we are using zod to validate the form data on server side
+  const validatedPet = petFormSchema.safeParse(pet);
+  if (!validatedPet.success) {
+    return {
+      message: "Invalid pet data",
+    };
+  }
 
   try {
     await prisma?.pet.create({
