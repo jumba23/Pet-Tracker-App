@@ -7,7 +7,7 @@ const Login = () => {
     <main>
       <H1 className="mb-5 text-center">Login Page</H1>
 
-      <AuthForm type="signUp" />
+      <AuthForm type="login" />
 
       <p className="mt-6 text-sm text-zinc-500">
         No account yet?{" "}
