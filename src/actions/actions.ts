@@ -1,4 +1,4 @@
-// this needs to be declarer in order to use server actions
+// this needs to be declarer ("use server") in order to use Server Actions and NOT for server components
 "use server";
 
 import { sleep } from "@/lib/utils";
