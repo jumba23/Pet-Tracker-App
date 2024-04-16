@@ -2,7 +2,11 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 
-const AuthForm = () => {
+type AuthFormProps = {
+  type: "login" | "signUp";
+};
+
+const AuthForm = ({ type }: AuthFormProps) => {
   return (
     <form>
       <div className="space-y-1">
@@ -15,7 +19,7 @@ const AuthForm = () => {
         <Input type="password" id="password" />
       </div>
 
-      <Button>Log In</Button>
+      <Button>{type === "login" ? "Log in" : "Sign up"}</Button>
     </form>
   );
 };
