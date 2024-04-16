@@ -7,7 +7,9 @@ import { revalidatePath } from "next/cache";
 
 // ---------- USER ACTIONS ------------
 
-export const login = (authData) => {};
+export const login = (authData) => {
+  console.log("login Data", authData);
+};
 
 // ---------- PET ACTIONS ------------
 
