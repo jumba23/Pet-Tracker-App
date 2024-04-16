@@ -15,6 +15,7 @@ export const login = async (formData: FormData) => {
   //   password: formData.get("password"),
   // };
 
+  //converting form data to javascript object
   const authData = Object.fromEntries(formData.entries());
 
   console.log("login Data", authData);
