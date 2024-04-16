@@ -1,14 +1,25 @@
 // this needs to be declarer ("use server") in order to use Server Actions and NOT for server components
 "use server";
 
+import { signIn } from "@/lib/auth";
 import { sleep } from "@/lib/utils";
 import { petFormSchema, petIdSchema } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 
 // ---------- USER ACTIONS ------------
 
-export const login = (authData) => {
+export const login = async (formData: FormData) => {
+  //another way to get the form data
+  // const data = {
+  //   email: formData.get("email"),
+  //   password: formData.get("password"),
+  // };
+
+  const authData = Object.fromEntries(formData.entries());
+
   console.log("login Data", authData);
+
+  await signIn("credentials", authData);
 };
 
 // ---------- PET ACTIONS ------------
