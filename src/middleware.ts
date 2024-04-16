@@ -1,6 +1,7 @@
-import next from "next"
+import next from "next";
+import { NextResponse } from "next/server";
 
-export const middleware = () => {
-    //do something
-    next()
-}
+export const middleware = (request: Request) => {
+  console.log("middleware", request.url);
+  return NextResponse.next();
+};
