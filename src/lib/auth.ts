@@ -1,5 +1,6 @@
-import { request } from "http";
 import NextAuth, { NextAuthConfig } from "next-auth";
+import bcrypt from "bcrypt";
+import Credentials from "next-auth/providers/credentials";
 
 const config = {
   pages: {
@@ -15,7 +16,8 @@ const config = {
         //runs on login
         const { email, password } = credentials;
 
-        const user = prisma?.user.findUnique({
+        // get user from db
+        const user = await prisma?.user.findUnique({
           where: {
             email,
           },
@@ -24,6 +26,17 @@ const config = {
           console.log("User not found");
           return null;
         }
+
+        // compare passwords using bcrypt
+        const passwordsMatch = await bcrypt.compare(
+          password,
+          user.hashedPassword
+        );
+        if (!passwordsMatch) {
+          console.log("Invalid Credentials");
+          return null;
+        }
+        return user;
       },
     }),
   ],
