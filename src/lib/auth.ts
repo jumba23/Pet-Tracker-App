@@ -1,5 +1,5 @@
 import NextAuth, { NextAuthConfig } from "next-auth";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import Credentials from "next-auth/providers/credentials";
 
 const config = {
