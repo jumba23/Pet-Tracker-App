@@ -9,9 +9,27 @@ const config = {
   //     maxAge: 30 * 24 * 60 * 60,
   //     strategy: "jwt",
   //   },
-  providers: [],
+  providers: [
+    Credentials({
+      async authorize(credentials) {
+        //runs on login
+        const { email, password } = credentials;
+
+        const user = prisma?.user.findUnique({
+          where: {
+            email,
+          },
+        });
+        if (!user) {
+          console.log("User not found");
+          return null;
+        }
+      },
+    }),
+  ],
   callbacks: {
     authorized: ({ request }) => {
+      //runs on every request with middleware
       const isTryingToAccessApp = request.nextUrl.pathname.includes("/app");
       if (isTryingToAccessApp) {
         return false;
@@ -22,4 +40,4 @@ const config = {
   },
 } satisfies NextAuthConfig;
 
-export const { auth } = NextAuth(config);
+export const { auth, signIn } = NextAuth(config);
