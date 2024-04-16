@@ -8,7 +8,12 @@ type AuthFormProps = {
 
 const AuthForm = ({ type }: AuthFormProps) => {
   return (
-    <form>
+    <form
+      action={} // ACTION attribute comes with some progressive enhancements
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
       <div className="space-y-1">
         <Label htmlFor="email">Email</Label>
         <Input type="email" id="email" />
