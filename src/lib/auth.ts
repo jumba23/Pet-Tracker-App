@@ -46,9 +46,15 @@ const config = {
       //runs on every request with middleware
       const isLoggedIn = Boolean(auth?.user);
       const isTryingToAccessApp = request.nextUrl.pathname.includes("/app");
-      if (isTryingToAccessApp) {
+
+      if (!isLoggedIn && isTryingToAccessApp) {
         return false;
-      } else {
+      }
+      if (isLoggedIn && isTryingToAccessApp) {
+        return true;
+      }
+
+      if (!isTryingToAccessApp) {
         return true;
       }
     },
