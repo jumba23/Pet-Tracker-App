@@ -1,6 +1,7 @@
 import NextAuth, { NextAuthConfig } from "next-auth";
 import bcrypt from "bcryptjs";
 import Credentials from "next-auth/providers/credentials";
+import prisma from "./db";
 
 const config = {
   pages: {
@@ -17,7 +18,7 @@ const config = {
         const { email, password } = credentials;
 
         // get user from db
-        const user = await prisma?.user.findUnique({
+        const user = await prisma.user.findUnique({
           where: {
             email,
           },

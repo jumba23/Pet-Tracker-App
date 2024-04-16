@@ -11,9 +11,6 @@ const AuthForm = ({ type }: AuthFormProps) => {
   return (
     <form
       action={login} // ACTION attribute comes with some progressive enhancements
-      // onSubmit={(e) => {
-      //   e.preventDefault();
-      // }}
     >
       <div className="space-y-1">
         <Label htmlFor="email">Email</Label>
