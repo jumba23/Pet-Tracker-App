@@ -1,3 +1,4 @@
+// this needs to be declarer in order to use server actions
 "use server";
 
 import { sleep } from "@/lib/utils";
@@ -6,6 +7,12 @@ import { revalidatePath } from "next/cache";
 
 export const addPet = async (pet: unknown) => {
   await sleep(1000);
+
+  // ---------- USER ACTIONS ------------
+
+  export const login = (authData) => {};
+
+  // ---------- PET ACTIONS ------------
 
   // here we are using zod to validate the form data on server side
   const validatedPet = petFormSchema.safeParse(pet);
