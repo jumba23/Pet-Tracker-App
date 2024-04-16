@@ -1,6 +1,7 @@
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { login } from "@/actions/actions";
 
 type AuthFormProps = {
   type: "login" | "signUp";
@@ -9,7 +10,7 @@ type AuthFormProps = {
 const AuthForm = ({ type }: AuthFormProps) => {
   return (
     <form
-      action={} // ACTION attribute comes with some progressive enhancements
+      action={login} // ACTION attribute comes with some progressive enhancements
       onSubmit={(e) => {
         e.preventDefault();
       }}

@@ -5,14 +5,14 @@ import { sleep } from "@/lib/utils";
 import { petFormSchema, petIdSchema } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 
+// ---------- USER ACTIONS ------------
+
+export const login = (authData) => {};
+
+// ---------- PET ACTIONS ------------
+
 export const addPet = async (pet: unknown) => {
   await sleep(1000);
-
-  // ---------- USER ACTIONS ------------
-
-  export const login = (authData) => {};
-
-  // ---------- PET ACTIONS ------------
 
   // here we are using zod to validate the form data on server side
   const validatedPet = petFormSchema.safeParse(pet);
