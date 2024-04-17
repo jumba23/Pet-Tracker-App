@@ -5,10 +5,11 @@ import { signIn, signOut } from "@/lib/auth";
 import { sleep } from "@/lib/utils";
 import { petFormSchema, petIdSchema } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
+import prisma from "@/lib/db";
 
 // ---------- USER ACTIONS ------------
 
-export const login = async (formData: FormData) => {
+export const logIn = async (formData: FormData) => {
   //another way to get the form data
   // const data = {
   //   email: formData.get("email"),
@@ -26,6 +27,18 @@ export const login = async (formData: FormData) => {
 export const logOut = async () => {
   await signOut({ redirectTo: "/" });
 };
+
+export   const signUp = (formData: FormData) => {
+
+// create new user in db using prisma
+prisma.user.create({
+  data: {
+    email: formData.get("email"),
+    hashedPassword: formData.get("password")
+  },
+
+  }
+
 
 // ---------- PET ACTIONS ------------
 

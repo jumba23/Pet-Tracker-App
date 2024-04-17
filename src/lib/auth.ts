@@ -64,6 +64,9 @@ const config = {
       if (!isLoggedIn && !isTryingToAccessApp) {
         return true;
       }
+
+      //to play safe
+      return false;
     },
   },
 } satisfies NextAuthConfig;
