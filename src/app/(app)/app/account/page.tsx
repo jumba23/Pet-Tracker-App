@@ -2,7 +2,6 @@ import ContentBlock from "@/components/content-block";
 import H1 from "@/components/h1";
 import SignOutBtn from "@/components/sign-out-btn";
 import auth from "@/middleware";
-import { signOut } from "next-auth/react";
 
 const Page = async () => {
   const session = await auth();
