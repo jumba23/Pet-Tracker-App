@@ -6,6 +6,7 @@ import { sleep } from "@/lib/utils";
 import { petFormSchema, petIdSchema } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 import prisma from "@/lib/db";
+import bcrypt from "bcrypt";
 
 // ---------- USER ACTIONS ------------
 
@@ -28,17 +29,20 @@ export const logOut = async () => {
   await signOut({ redirectTo: "/" });
 };
 
-export   const signUp = (formData: FormData) => {
+export const signUp = async (formData: FormData) => {
+  const hashedPassword = await bcrypt.hash(
+    formData.get("password") as string,
+    10
+  );
 
-// create new user in db using prisma
-prisma.user.create({
-  data: {
-    email: formData.get("email"),
-    hashedPassword: formData.get("password")
-  },
-
-  }
-
+  // create new user in db using prisma
+  await prisma.user.create({
+    data: {
+      email: formData.get("email") as string,
+      hashedPassword,
+    },
+  });
+};
 
 // ---------- PET ACTIONS ------------
 
