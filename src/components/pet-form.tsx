@@ -29,13 +29,16 @@ const PetForm = ({ actionType, onFormSubmission }: PetFormProps) => {
   } = useForm<TPetFormData>({
     //this is we are connecting external validation library zod to react-hook-form
     resolver: zodResolver(petFormSchema),
-    defaultValues: {
-      name: selectedPet?.name,
-      ownerName: selectedPet?.ownerName,
-      imageUrl: selectedPet?.imageUrl,
-      age: selectedPet?.age,
-      notes: selectedPet?.notes,
-    },
+    defaultValues:
+      actionType === "edit"
+        ? {
+            name: selectedPet?.name,
+            ownerName: selectedPet?.ownerName,
+            imageUrl: selectedPet?.imageUrl,
+            age: selectedPet?.age,
+            notes: selectedPet?.notes,
+          }
+        : undefined,
   });
 
   return (
