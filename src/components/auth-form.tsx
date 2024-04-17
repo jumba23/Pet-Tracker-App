@@ -1,7 +1,7 @@
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { login } from "@/actions/actions";
+import { logIn, signUp } from "@/actions/actions";
 
 type AuthFormProps = {
   type: "login" | "signUp";
@@ -10,7 +10,7 @@ type AuthFormProps = {
 const AuthForm = ({ type }: AuthFormProps) => {
   return (
     <form
-      action={login} // ACTION attribute comes with some progressive enhancements
+      action={type === "login" ? logIn : signUp} // ACTION attribute comes with some progressive enhancements
     >
       <div className="space-y-1">
         <Label htmlFor="email">Email</Label>
