@@ -42,6 +42,8 @@ export const signUp = async (formData: FormData) => {
       hashedPassword,
     },
   });
+
+  signIn("credentials", formData);
 };
 
 // ---------- PET ACTIONS ------------
