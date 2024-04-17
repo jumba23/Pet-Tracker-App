@@ -18,11 +18,11 @@ export const logIn = async (formData: FormData) => {
   // };
 
   //converting form data to javascript object
-  const authData = Object.fromEntries(formData.entries());
+  // const authData = Object.fromEntries(formData.entries());
 
-  console.log("login Data", authData);
+  console.log("login Data", formData);
 
-  await signIn("credentials", authData);
+  await signIn("credentials", formData);
 };
 
 export const logOut = async () => {
