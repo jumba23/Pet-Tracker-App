@@ -54,7 +54,14 @@ const config = {
         return true;
       }
 
-      if (!isTryingToAccessApp) {
+      if (isLoggedIn && !isTryingToAccessApp) {
+        // new URL is a built-in node module that helps us create a URL object
+        return Response.redirect(
+          new URL("/app/dashboard", request.nextUrl).href
+        );
+      }
+
+      if (!isLoggedIn && !isTryingToAccessApp) {
         return true;
       }
     },
