@@ -1,7 +1,7 @@
 // this needs to be declarer ("use server") in order to use Server Actions and NOT for server components
 "use server";
 
-import { signIn } from "@/lib/auth";
+import { signIn, signOut } from "@/lib/auth";
 import { sleep } from "@/lib/utils";
 import { petFormSchema, petIdSchema } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
@@ -21,6 +21,10 @@ export const login = async (formData: FormData) => {
   console.log("login Data", authData);
 
   await signIn("credentials", authData);
+};
+
+export const logOut = async () => {
+  await signOut({ redirectTo: "/" });
 };
 
 // ---------- PET ACTIONS ------------
