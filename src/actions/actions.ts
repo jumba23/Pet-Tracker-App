@@ -43,7 +43,7 @@ export const signUp = async (formData: FormData) => {
     },
   });
 
-  signIn("credentials", formData);
+  await signIn("credentials", formData);
 };
 
 // ---------- PET ACTIONS ------------
