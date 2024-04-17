@@ -18,7 +18,7 @@ const Page = async () => {
       <H1 className="my-8 text-white">Your Account</H1>
 
       <ContentBlock className="h-[500px] flex items-center justify-center">
-        <p>Logged in as {session?.user.email}</p>
+        <p>Logged in as {session.user.email}</p>
       </ContentBlock>
     </main>
   );
