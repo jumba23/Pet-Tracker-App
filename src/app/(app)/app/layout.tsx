@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/sonner";
 import PetContextProvider from "@/context/pet-context-provider";
 import { SearchContextProvider } from "@/context/search-context-provider";
 import prisma from "@/lib/db";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const response = await fetch(
@@ -18,8 +20,17 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   // const pets: Pet[] = await response.json();
   // console.log(data);
 
+  const session = await auth();
+  if (!session?.user) {
+    redirect("/login");
+  }
+
   // DB data
-  const pets = await prisma.pet.findMany();
+  const pets = await prisma.pet.findMany({
+    where: {
+      userId: session.user.id,
+    },
+  });
 
   return (
     <>
