@@ -1,12 +1,13 @@
 // this needs to be declarer ("use server") in order to use Server Actions and NOT for server components
 "use server";
 
-import { signIn, signOut } from "@/lib/auth";
+import { auth, signIn, signOut } from "@/lib/auth";
 import { sleep } from "@/lib/utils";
 import { petFormSchema, petIdSchema } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 import prisma from "@/lib/db";
 import bcrypt from "bcrypt";
+import { redirect } from "next/navigation";
 
 // ---------- USER ACTIONS ------------
 
@@ -51,6 +52,11 @@ export const signUp = async (formData: FormData) => {
 export const addPet = async (pet: unknown) => {
   await sleep(1000);
 
+  const session = await auth();
+  if (!session?.user) {
+    redirect("/login");
+  }
+
   // here we are using zod to validate the form data on server side
   const validatedPet = petFormSchema.safeParse(pet);
   if (!validatedPet.success) {
@@ -61,7 +67,14 @@ export const addPet = async (pet: unknown) => {
 
   try {
     await prisma?.pet.create({
-      data: validatedPet.data,
+      data: {
+        ...validatedPet.data,
+        user: {
+          connect: {
+            id: session.user.id,
+          },
+        },
+      },
     });
   } catch (error) {
     return {
