@@ -135,6 +135,14 @@ export const deletePet = async (petId: unknown) => {
   }
 
   //authorization check (user owns the pet)
+  await prisma.pet.findUnique({
+    where: {
+      id: validatedPetId.data,
+    },
+    select: {
+      userId: true,
+    },
+  });
 
   try {
     await prisma?.pet.delete({
