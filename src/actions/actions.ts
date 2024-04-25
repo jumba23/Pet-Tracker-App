@@ -108,6 +108,8 @@ export const editPet = async (petId: unknown, newPetData: unknown) => {
     };
   }
 
+  //authorization check (user owns the pet)
+
   try {
     await prisma?.pet.update({
       where: {
