@@ -23,6 +23,15 @@ export const getPetById = async (petId: Pet["id"]) => {
   return pet;
 };
 
+export const getUserByEmail = async (email: User["email"]) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  });
+  return user;
+};
+
 export const getPetsByUserId = async (userId: User["id"]) => {
   const pets = await prisma.pet.findMany({
     where: {
