@@ -7,8 +7,8 @@ import { petFormSchema, petIdSchema } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 import prisma from "@/lib/db";
 import bcrypt from "bcrypt";
-import { redirect } from "next/navigation";
-import { checkAuth } from "@/lib/server-utils";
+import { checkAuth, getPetById } from "@/lib/server-utils";
+import { get } from "http";
 
 // ---------- USER ACTIONS ------------
 
@@ -104,11 +104,7 @@ export const editPet = async (petId: unknown, newPetData: unknown) => {
   }
 
   //authorization check (user owns the pet)
-  const pet = await prisma.pet.findUnique({
-    where: {
-      id: validatedPetId.data,
-    },
-  });
+  const pet = await getPetById(validatedPetId.data);
 
   // checking if the pet exists even if the id is valid
   if (!pet) {
