@@ -4,8 +4,7 @@ import BackgroundPattern from "@/components/background-pattern";
 import { Toaster } from "@/components/ui/sonner";
 import PetContextProvider from "@/context/pet-context-provider";
 import { SearchContextProvider } from "@/context/search-context-provider";
-import prisma from "@/lib/db";
-import { checkAuth } from "@/lib/server-utils";
+import { checkAuth, getPetsByUserId } from "@/lib/server-utils";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const response = await fetch(
@@ -22,11 +21,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   const session = await checkAuth();
 
   // DB data
-  const pets = await prisma.pet.findMany({
-    where: {
-      userId: session.user.id,
-    },
-  });
+  const pets = await getPetsByUserId(session.user.id);
 
   return (
     <>

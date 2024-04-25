@@ -23,11 +23,11 @@ export const getPetById = async (petId: Pet["id"]) => {
   return pet;
 };
 
-export const getPetByUserId = async (userId: User["id"]) => {
-  const pet = await prisma.pet.findMany({
+export const getPetsByUserId = async (userId: User["id"]) => {
+  const pets = await prisma.pet.findMany({
     where: {
       userId,
     },
   });
-  return pet;
+  return pets;
 };
