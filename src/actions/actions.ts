@@ -120,6 +120,7 @@ export const editPet = async (petId: unknown, newPetData: unknown) => {
 export const deletePet = async (petId: unknown) => {
   await sleep(1000);
 
+  // ============ Checks before interacting with the database ============
   //authentication check
   const session = await auth();
   if (!session?.user) {
@@ -152,6 +153,9 @@ export const deletePet = async (petId: unknown) => {
     };
   }
 
+  // ============ End of checks ============
+
+  // interact with the database
   try {
     await prisma?.pet.delete({
       where: {
