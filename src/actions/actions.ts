@@ -146,6 +146,12 @@ export const deletePet = async (petId: unknown) => {
     };
   }
 
+  if (pet.userId !== session.user.id) {
+    return {
+      message: "You are not authorized to delete this pet",
+    };
+  }
+
   try {
     await prisma?.pet.delete({
       where: {
