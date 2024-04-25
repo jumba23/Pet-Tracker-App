@@ -109,6 +109,18 @@ export const editPet = async (petId: unknown, newPetData: unknown) => {
   }
 
   //authorization check (user owns the pet)
+  const pet = await prisma.pet.findUnique({
+    where: {
+      id: validatedPetId.data,
+    },
+  });
+
+  // checking if the pet exists even if the id is valid
+  if (!pet) {
+    return {
+      message: "Pet not found",
+    };
+  }
 
   try {
     await prisma?.pet.update({
