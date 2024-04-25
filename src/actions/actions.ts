@@ -1,7 +1,7 @@
 // this needs to be declarer ("use server") in order to use Server Actions and NOT for server components
 "use server";
 
-import { auth, signIn, signOut } from "@/lib/auth";
+import { signIn, signOut } from "@/lib/auth";
 import { sleep } from "@/lib/utils";
 import { petFormSchema, petIdSchema } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
@@ -90,10 +90,7 @@ export const editPet = async (petId: unknown, newPetData: unknown) => {
   // ============ Checks before interacting with the database ============
 
   //authentication check
-  const session = await auth();
-  if (!session?.user) {
-    redirect("/login");
-  }
+  const session = await checkAuth();
 
   //validate pet id schema
   const validatedPetId = petIdSchema.safeParse(petId);
@@ -151,10 +148,7 @@ export const deletePet = async (petId: unknown) => {
 
   // ============ Checks before interacting with the database ============
   //authentication check
-  const session = await auth();
-  if (!session?.user) {
-    redirect("/login");
-  }
+  const session = await checkAuth();
 
   //validation
   const validatedPetId = petIdSchema.safeParse(petId);

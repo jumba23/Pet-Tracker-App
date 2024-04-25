@@ -1,18 +1,10 @@
 import ContentBlock from "@/components/content-block";
 import H1 from "@/components/h1";
 import SignOutBtn from "@/components/sign-out-btn";
-import auth from "@/middleware";
+import { checkAuth } from "@/lib/server-utils";
 
 const Page = async () => {
-  const session = await auth();
-  if (!session?.user) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
+  const session = await checkAuth();
 
   // ================ EXAMPLE ================
   // instead of creating this function in server actions component, we can create the function here
