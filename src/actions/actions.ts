@@ -122,6 +122,15 @@ export const editPet = async (petId: unknown, newPetData: unknown) => {
     };
   }
 
+  if (pet.userId !== session.user.id) {
+    return {
+      message: "You are not authorized to edit this pet",
+    };
+  }
+
+  //============ End of checks ============
+
+  // interact with the database - database operation
   try {
     await prisma?.pet.update({
       where: {
