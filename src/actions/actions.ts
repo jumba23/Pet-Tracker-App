@@ -8,6 +8,7 @@ import { revalidatePath } from "next/cache";
 import prisma from "@/lib/db";
 import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
+import { checkAuth } from "@/lib/server-utils";
 
 // ---------- USER ACTIONS ------------
 
@@ -53,10 +54,7 @@ export const addPet = async (pet: unknown) => {
   await sleep(1000);
 
   //authentication check
-  const session = await auth();
-  if (!session?.user) {
-    redirect("/login");
-  }
+  const session = await checkAuth();
 
   // here we are using zod to validate the form data on server side
   const validatedPet = petFormSchema.safeParse(pet);
