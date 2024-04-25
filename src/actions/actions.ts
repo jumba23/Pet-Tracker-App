@@ -52,6 +52,7 @@ export const signUp = async (formData: FormData) => {
 export const addPet = async (pet: unknown) => {
   await sleep(1000);
 
+  //authentication check
   const session = await auth();
   if (!session?.user) {
     redirect("/login");
@@ -119,12 +120,21 @@ export const editPet = async (petId: unknown, newPetData: unknown) => {
 export const deletePet = async (petId: unknown) => {
   await sleep(1000);
 
+  //authentication check
+  const session = await auth();
+  if (!session?.user) {
+    redirect("/login");
+  }
+
+  //validation
   const validatedPetId = petIdSchema.safeParse(petId);
   if (!validatedPetId.success) {
     return {
       message: "Invalid pet id",
     };
   }
+
+  //authorization check (user owns the pet)
 
   try {
     await prisma?.pet.delete({
