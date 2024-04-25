@@ -89,11 +89,19 @@ export const addPet = async (pet: unknown) => {
 export const editPet = async (petId: unknown, newPetData: unknown) => {
   await sleep(1000);
 
+  // ============ Checks before interacting with the database ============
+
+  //authentication check
+  const session = await auth();
+  if (!session?.user) {
+    redirect("/login");
+  }
+
   //validate pet id schema
   const validatedPetId = petIdSchema.safeParse(petId);
-
   // here we are using zod to validate the form data on server side
   const validatedPet = petFormSchema.safeParse(newPetData);
+
   if (!validatedPetId.success || !validatedPet.success) {
     return {
       message: "Invalid pet data",
