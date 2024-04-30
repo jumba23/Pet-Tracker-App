@@ -31,3 +31,8 @@ export const petFormSchema = z
 
 // zod will give us the type of the form data
 export type TPetFormData = z.infer<typeof petFormSchema>;
+
+export const authSchema = z.object({
+  email: z.string().email(),
+  password: z.string(),
+});
