@@ -3,16 +3,29 @@
 
 import { signIn, signOut } from "@/lib/auth";
 import { sleep } from "@/lib/utils";
-import { petFormSchema, petIdSchema } from "@/lib/validations";
+import { authSchema, petFormSchema, petIdSchema } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 import prisma from "@/lib/db";
 import bcrypt from "bcrypt";
 import { checkAuth, getPetById } from "@/lib/server-utils";
-import { get } from "http";
+import { redirect } from "next/navigation";
 
 // ---------- USER ACTIONS ------------
 
-export const logIn = async (formData: FormData) => {
+export const logIn = async (formData: unknown) => {
+  if (!(formData instanceof FormData)) {
+    return {
+      message: "Invalid form data",
+    };
+  }
+
+  const formDataObject = Object.fromEntries(formData.entries());
+  const validatedFormDataObject = authSchema.safeParse(formDataObject);
+  if (!validatedFormDataObject.success) {
+    return {
+      message: "Invalid login data",
+    };
+  }
   //another way to get the form data
   // const data = {
   //   email: formData.get("email"),
@@ -22,9 +35,11 @@ export const logIn = async (formData: FormData) => {
   //converting form data to javascript object
   // const authData = Object.fromEntries(formData.entries());
 
-  console.log("login Data", formData);
+  console.log("login Data", formDataObject);
 
-  await signIn("credentials", formData);
+  await signIn("credentials", formDataObject);
+
+  redirect("/app/dashboard");
 };
 
 export const logOut = async () => {
