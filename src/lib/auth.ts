@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import Credentials from "next-auth/providers/credentials";
 import prisma from "./db";
 import { getUserByEmail } from "./server-utils";
+import { TAuth, authSchema } from "@/lib/validations";
 
 const config = {
   pages: {
@@ -15,17 +16,22 @@ const config = {
   providers: [
     Credentials({
       async authorize(credentials) {
-        //runs on login
-        const { email, password } = credentials;
+        // runs on login
 
-        // get user from db
-        const user = await getUserByEmail(email);
-
-        if (!user) {
-          console.log("User not found");
+        // validation
+        const validatedFormData = authSchema.safeParse(credentials);
+        if (!validatedFormData.success) {
           return null;
         }
 
+        // extract values
+        const { email, password } = validatedFormData.data;
+
+        const user = await getUserByEmail(email);
+        if (!user) {
+          console.log("No user found");
+          return null;
+        }
         // compare passwords using bcrypt
         const passwordsMatch = await bcrypt.compare(
           password,

@@ -9,40 +9,38 @@ import prisma from "@/lib/db";
 import bcrypt from "bcrypt";
 import { checkAuth, getPetById } from "@/lib/server-utils";
 import { redirect } from "next/navigation";
+import { AuthError } from "next-auth";
 
 // ---------- USER ACTIONS ------------
 
-export const logIn = async (formData: unknown) => {
-  // check if the form data is a FormData type
+export async function logIn(prevState: unknown, formData: unknown) {
   if (!(formData instanceof FormData)) {
     return {
-      message: "Invalid form data",
+      message: "Invalid form data.",
     };
   }
 
-  // convert form data to javascript object
-  const formDataObject = Object.fromEntries(formData.entries());
-  const validatedFormDataObject = authSchema.safeParse(formDataObject);
-  if (!validatedFormDataObject.success) {
-    return {
-      message: "Invalid login data",
-    };
+  try {
+    await signIn("credentials", formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin": {
+          return {
+            message: "Invalid credentials.",
+          };
+        }
+        default: {
+          return {
+            message: "Error. Could not sign in.",
+          };
+        }
+      }
+    }
+
+    throw error; // nextjs redirects throws error, so we need to rethrow it
   }
-  //another way to get the form data
-  // const data = {
-  //   email: formData.get("email"),
-  //   password: formData.get("password"),
-  // };
-
-  //converting form data to javascript object
-  // const authData = Object.fromEntries(formData.entries());
-
-  console.log("login Data", formDataObject);
-
-  await signIn("credentials", validatedFormDataObject.data);
-
-  redirect("/app/dashboard");
-};
+}
 
 export const logOut = async () => {
   await signOut({ redirectTo: "/" });
