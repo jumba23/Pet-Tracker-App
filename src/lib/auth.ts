@@ -1,9 +1,8 @@
 import NextAuth, { NextAuthConfig } from "next-auth";
 import bcrypt from "bcryptjs";
 import Credentials from "next-auth/providers/credentials";
-import prisma from "./db";
 import { getUserByEmail } from "./server-utils";
-import { TAuth, authSchema } from "@/lib/validations";
+import { authSchema } from "@/lib/validations";
 
 const config = {
   pages: {
