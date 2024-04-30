@@ -13,12 +13,14 @@ import { redirect } from "next/navigation";
 // ---------- USER ACTIONS ------------
 
 export const logIn = async (formData: unknown) => {
+  // check if the form data is a FormData type
   if (!(formData instanceof FormData)) {
     return {
       message: "Invalid form data",
     };
   }
 
+  // convert form data to javascript object
   const formDataObject = Object.fromEntries(formData.entries());
   const validatedFormDataObject = authSchema.safeParse(formDataObject);
   if (!validatedFormDataObject.success) {
@@ -37,7 +39,7 @@ export const logIn = async (formData: unknown) => {
 
   console.log("login Data", formDataObject);
 
-  await signIn("credentials", formDataObject);
+  await signIn("credentials", validatedFormDataObject.data);
 
   redirect("/app/dashboard");
 };
