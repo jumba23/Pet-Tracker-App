@@ -21,7 +21,6 @@ export async function logIn(prevState: unknown, formData: unknown) {
 
   try {
     await signIn("credentials", formData);
-    console.log("Signed in");
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
