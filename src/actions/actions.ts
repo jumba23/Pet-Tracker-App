@@ -8,7 +8,6 @@ import { revalidatePath } from "next/cache";
 import prisma from "@/lib/db";
 import bcrypt from "bcrypt";
 import { checkAuth, getPetById } from "@/lib/server-utils";
-import { redirect } from "next/navigation";
 import { AuthError } from "next-auth";
 
 // ---------- USER ACTIONS ------------
@@ -22,6 +21,7 @@ export async function logIn(prevState: unknown, formData: unknown) {
 
   try {
     await signIn("credentials", formData);
+    console.log("Signed in");
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
